@@ -1,0 +1,2999 @@
+/*
+	 数学関数を視覚的に！
+     Copyright (C) 2007-2009 牛久栄進高校パソコン部
+
+     本プログラムはフリー・ソフトウェアです。あなたは、Free Software Foundation 
+     が公表したGNU 一般公有使用許諾の「バージョン２」或いはそれ以降の各バージョ
+     ンの中からいずれかを選択し、そのバージョンが定める条項に従って本プログラム
+     を再頒布または変更することができます。
+
+     本プログラムは有用とは思いますが、頒布にあたっては、市場性及び特定目的適合
+     性についての暗黙の保証を含めて、いかなる保証も行ないません。詳細については
+     GNU 一般公有使用許諾書をお読みください。
+
+     あなたは、本プログラムと一緒にGNU 一般公有使用許諾の写しを受け取ってい
+     るはずです。そうでない場合は、Free Software Foundation, Inc., 675 Mass Ave,
+     Cambridge, MA 02139, USA へ手紙を書いてください。
+*/
+#packopt name "Funcshow"
+dir_max=dir_cur
+kj="Funcshow"
+#packopt hide 1
+#uselib "kernel32.dll"
+#func global CreateMutexA	"CreateMutexA"	sptr,int,sptr
+#func global CloseHandle	"CloseHandle"	sptr
+#func global GetLastError	"GetLastError"
+#func global GetModuleFileName "GetModuleFileNameA" sptr,sptr,sptr
+#cfunc global GetModuleHandle "GetModuleHandleA" sptr
+sdim commad,1024
+CreateMutexA 0,0,kj
+mutex_handle=stat
+GetLastError
+if stat=183 : end
+onexit *mutex_end
+bgscr 4,320,160,2,ginfo_dispx/2-160,ginfo_dispy/2-80
+gsel 4,2
+boxf
+color $ff,$ff,$ff
+boxf 2,2,317,157
+color
+randomize
+y=2*gettime(3)+2
+pos -1,94
+repeat 320
+	t=0.05*(cnt-160)
+	repeat y,1
+		f-=1.0*(sin(1.0*cnt*t)/cnt)
+		await
+	loop
+	line cnt,f*20+80
+	f=0.0
+loop
+font msgothic,35,16
+pos 18,18
+mes kj+" 6"
+font msgothic,14,16
+pos 50,130
+mes "2009/10/31 牛久栄進高校パソコン部"
+ddim risk,250
+foreach risk
+risk.cnt=1.0
+loop
+ddim trw,250
+repeat 250
+trw.cnt=1.0
+loop
+txt="Gamma.dll"
+if GetModuleHandle(txt)=0 : dialog"gamma.dll not found",1,kj : end
+trw.0=0.0
+trw.2=0.0
+trw.3=0.0
+trw.5=0.0
+trw.6=0.0
+trw.8=0.0
+trw.12=2.0
+trw.16=2.0
+trw.29=0.0
+trw.37=2.0
+trw.51=0.0
+trw.77=2.0
+trw.81=100.0
+trw.83=0.0
+trw.85=0.0
+trw.86=0.0
+trw.90=0.0
+trw.144=0.0
+trw.145=0.0
+trw.158=0.0
+trw.159=0.0
+trw.194=0.0
+trw.215=0.0
+trw.216=0.0
+trw.217=0.0
+trw.218=0.0
+trw.219=0.0
+trw.220=0.0
+dim in,22
+repeat 22
+in.cnt=1
+loop
+in.1=0
+in.3=0
+in.7=0
+in.8=2
+in.10=0
+in.11=2
+in.13=0
+in.14=0
+in.17=2
+in.18=0
+in.19=0
+in.21=0
+tx=1.0
+fsr=128
+fsg=128
+fsb=150
+hsr=255
+hsg=255
+hsb=255
+hsrr=255
+hsbi=255
+kakkak=13
+kakkad=5
+xt=1.0
+over=ginfo_dispy*2
+zoomy=1
+ddim kal,3
+kal.2=1.0
+ddim coef,20
+coef=8.333333333333333333333333333e-2,-1.388888888888888888888888889e-3,3.306878306878306878306878307e-5,-8.267195767195767195767195767e-7,2.087675698786809897921009032e-8,-5.284190138687493184847682202e-10,1.338253653068467883282698098e-11,-3.389680296322582866830195391e-13,8.586062056277844564135905450e-15,-2.174868698558061873041516424e-16,5.509002828360229515202652609e-18,-1.395446468581252334070768626e-19,3.534707039629467471693229977e-21,-8.953517427037546850402611251e-23,2.267952452337683060310950058e-24,-5.744790668872202445263829503e-26,1.455172475614864901866244572e-27,-3.685994940665310178130050728e-29,9.336734257095044668660153106e-31,-2.365022415700629886484029550e-32
+dim tb,36
+exist"Pictures.dat"
+if strsize=-1 : dpm=1 : else : chdpm"Pictures.dat",1878229893
+#uselib "gdi32"
+#cfunc GetStockObject "GetStockObject" int
+
+#uselib "user32"
+#cfunc LoadCursor "LoadCursorA" nullptr, int
+#func SetClassLong "SetClassLongA" int, int, int
+#cfunc GetWindowLong "GetWindowLongA" int, int
+#func global SetWindowPos "SetWindowPos" sptr,sptr,sptr,sptr,sptr,sptr,sptr
+#func global SetWindowLong		"SetWindowLongA"		int, int, int
+#func global EnableWindow "EnableWindow" sptr,sptr
+#cfunc global LoadImage "LoadImageA" sptr,sptr,sptr,sptr,sptr,sptr
+#define global Back_Color_Set syscolor 15 : boxf : syscolor 7 : sysfont 17
+screen 7,406,82,6,(ginfo(20))/2-203,(ginfo(21))/2-41,406,82
+SetWindowLong hwnd, -16, 0xC000C0
+title kj+"のバージョン情報"
+Back_Color_Set
+pos 10,11
+winobj "static","",,$50000003,48,48
+sendmsg objinfo(stat,2),$170,LoadImage(hinstance,128,1,48,48,$8000)
+pos 300,43
+objsize 85,20
+BUTTON gosub"OK",*kan
+pos 70,9
+mes kj+" ver.6 (SMA-1A-6)"
+pos 70,27
+mes"Copyright (C) 2007-2009 牛久栄進高校パソコン部"
+pos 70,45
+mes "homepage : http://www.ushikueishin-h.ed.jp/"
+pos 70,63
+mes "mail : shota_soft_tree@hotmail.co.jp"
+#define global INF logf(0)
+#define global B0  1.0
+#define global B1  (-1.0/2)
+#define global B2  ( 1.0/6)
+#define global B4  (-1.0/30)
+#define global B6  ( 1.0/42)
+#define global B8  (-1.0/30)
+#define global B10 ( 5.0/66)
+#define global B12 (-691.0/2730)
+#define global B14 ( 7.0/6)
+#define global B16 (-3617.0/ 510)
+#define global M_C 0.5772156649015328606
+#define global M_E 2.7182818284590452354
+#define global ctype pow(%1,%2)				(expf(logf(%1)*(%2)))
+#define global ctype sinh(%1,%2)			((expf(%1)-expf(-(%1)))/2*(%2))
+#define global ctype cosh(%1,%2)			((expf(%1)+expf(-(%1)))/2*(%2))
+#define global ctype tanh(%1)				(sinh(%1,1)/cosh(%1,1))
+#define global ctype coth(%1)				(cosh(%1,1)/sinh(%1,1))
+#define global ctype seth(%1)				(1.0/cosh(%1,1))
+#define global ctype cosech(%1)				(1.0/sinh(%1,1))
+#define global ctype cot(%1)				(cos(%1)/sin(%1))
+#define global ctype sec(%1)				(1.0/cos(%1))
+#define global ctype cosec(%1)				(1.0/sin(%1))
+#define global ctype arcsin(%1)				(atan((%1),sqrt(1.0-double(%1)*(%1))))
+#define global ctype arccos(%1)				(atan(sqrt(1.0-double(%1)*(%1)),(%1)))
+#define global ctype arctan(%1)				(atan(%1))
+#define global ctype arccot(%1)				(PI@/2-atan(%1))
+#define global ctype arcsinh(%1)			(logf(1.0*(%1)+sqrt((%1)*(%1)+1)))
+#define global ctype arccosh(%1)		    (logf(1.0*(%1)+sqrt((%1)*(%1)-1)))
+#define global ctype arctanh(%1)			(logf(sqrt((1.0+(%1))/(1.0-(%1)))))
+#define global ctype index(%1)				((%1)*0=0)
+#define global ctype round(%1)				double(strf("%%0.0f",%1))
+#define global ctype sgn(%1)				(((%1)>0)-((%1)<0))
+#define global ctype intf(%1)				round((-0.5)*sgn(%1)+(%1))
+#define global ctype floor(%1)				((intf(%1)-((%1)<intf(%1))))
+#define global ctype fmod(%1,%2)			(double(%1)-(%2)*intf(double(%1)/(%2)))
+#include"llmod3.hsp"
+#define DEFAULT_TREEBOX_STYLE	0
+#define TREE_ROOT	$ffff0000
+#module "_treebox"
+#deffunc treebox int v1,int v2,int v3
+	_v3 = v3
+	if(_v3 == 0) : _v3 = DEFAULT_TREEBOX_STYLE
+	_v3 = _v3 | $50000000
+	alloc m,64
+	m = ginfo@hsp(22),ginfo@hsp(23),v1,v2,_v3,0,$200
+	_makewnd m,"SysTreeView32"
+	handle_of_tree = m
+	return handle_of_tree
+#deffunc treeadd int v1,str v2,int v3,int v4,int v5,int v6
+	_v2 = v2
+	getptr p,_v2
+	_v1 = v1
+	if(_v1 == 0) : _v1 = TREE_ROOT
+	tvins = _v1,v3 | $ffff0000,39,0,0,0,p,m,v4,v5,0,v6
+	getptr p,tvins
+	sendmsg objinfo(handle_of_tree,2),4352,0,p
+	return
+#deffunc treeget var v1,int v2,int v3,int v4
+	_v2 = v2
+	_v4 = v4
+	dim tvi,10
+	if(v2 >= 6) {
+		getptr p,tvi
+		if(v2 == 6) {
+			if(_v4 == 0) : _v4 = 64
+			tvi.5 = _v4
+			getptr tvi.4,v1
+			tvi = 5,v3
+			m = 4364
+			if(_v4 < 0) : tvi = 1 : m++
+			sendmsg objinfo(handle_of_tree,2),m,0,p
+			stt = tvi.9
+		} else {
+			tvi = 4,v3
+			m = 4364
+			if(_v4) : tvi.9 = v1 : m++
+			sendmsg objinfo(handle_of_tree,2),m,0,p
+			v1 = tvi.9
+			stt = 0
+		}
+	} else {
+		if(_v2 == 0) : _v2 = 9 : else : if(_v2 == -1) : _v2 = 0
+		sendmsg objinfo(handle_of_tree,2),4362,_v2,v3
+		v1 = stat
+		stt = 0
+	}
+	return stt
+#deffunc treesel int v1,int v2
+	a = v2 & $f0
+	if(a) {
+		a = a >> 4
+		sendmsg objinfo(treeid@,2),4354,a,v1
+	}
+	_v2 = v2 & $f
+	if(_v2 == 2) : _v2 = 5 : else : _v2 = 9 - v2
+	sendmsg objinfo(treeid@,2),4363,_v2,v1
+	return
+#global
+#define __mod_menu__
+#uselib "user32.dll"
+#func global CreateMenu         "CreateMenu"
+#func global CreatePopupMenu    "CreatePopupMenu"
+#func global AppendMenu         "AppendMenuA"           int, int, int, str
+#func global SetMenu            "SetMenu"               int, int
+#func global DrawMenuBar        "DrawMenuBar"           int
+#func global PostMessage        "PostMessageA"          int, int, sptr, sptr
+#const global WM_CLOSE		0x0010
+#const global WM_COMMAND	0x0111
+#module "menumod"
+#deffunc newmenu var _p1, int _p2
+	if p2=0 : CreateMenu
+	if p2=1 : CreatePopupMenu
+	_p1 = stat
+	return
+#deffunc addmenu int _p1, str _p2, int _p3, int _p4
+        AppendMenu _p1, _p4, _p3, _p2
+	return
+#deffunc applymenu int _p1
+        SetMenu hwnd, _p1
+        DrawMenuBar hwnd
+	return
+#global
+#enum global NULL=0
+#enum CMD_SETTING
+#enum CMD_SAVE
+#enum CMD_QUIT
+#enum CMD_MESS
+#module "shota_func"
+#uselib"Gamma.dll"
+#func GammaV	"_GammaV@0"
+#func Bessel	"_BesselJ@20"	var,double,double
+#func BesseY	"_BesselY@20"	var,double,double
+#func BesseI	"_BesselI@20"	var,double,double
+#func BesseK	"_BesselK@20"	var,double,double
+#func BesseH	"_BesselH@12"	var,double
+#func Kelber	"_Kelvin1r@20"	var,double,double
+#func Kelbei	"_Kelvin1i@20"	var,double,double
+#func Kelher	"_Kelvin3r@20"	var,double,double
+#func Kelhei	"_Kelvin3i@20"	var,double,double
+#func Struv1	"_StruveH@20"	var,double,double
+#func Struv2	"_StruveL@20"	var,double,double
+#func Hyperg	"_Hyperg@20"	var,double,double
+#func kummer	"_kummer@28"	var,double,double,double
+#func Gaussf	"_Gaussf@36"	var,double,double,double,double
+#func Airy		"_Airy@12"		var,double
+#func Biry		"_Biry@12"		var,double
+#undef line
+#deffunc line int v1,int v2,int v3,int v6,int v9
+	if unline@=1 {
+		if v9 : line@hsp v1,v2,v3,v6 : else : line@hsp v1,v2
+	}else{
+		v4=1.0*ginfo_cx
+		v5=1.0*ginfo_cy
+		if v9 : v4=1.0*v3 : v5=1.0*v6
+		v7=sqrt(absf((v4-v1)*(v4-v1)+(v5-v2)*(v5-v2)))+a
+		v8=atan(v5-v2,v4-v1)
+		x=-cos(v8)*3
+		y=-sin(v8)*3
+		repeat v7/6
+			v4+=x*2
+			v5+=y*2
+			line@hsp v4+x,v5+y,v4,v5
+		loop
+		a=fmod(v7,3.0)
+		reg1=int(v1)
+		reg2=int(v2)
+	}
+	return
+
+#deffunc lie
+	a=0
+	return
+
+#deffunc line2 int v1,int v2,int v3,int v6
+	if in@(9)=0 : return
+	if in@(9)=1 : line@hsp v1,v2,v3,v6 : return
+		v4=1.0*ginfo_cx
+		v5=1.0*ginfo_cy
+		if v9 : v4=1.0*v3 : v5=1.0*v6
+		v7=sqrt(absf((v4-v1)*(v4-v1)+(v5-v2)*(v5-v2)))
+		v8=atan(v5-v2,v4-v1)
+		x=-cos(v8)*3
+		y=-sin(v8)*3
+		repeat v7/6
+			v4+=x*2
+			v5+=y*2
+			line@hsp v4+x,v5+y,v4,v5
+		loop
+	return
+	
+#deffunc bmit var v1,int v2,int v3,int v6
+	v4=v2
+	v5=v3
+	if v2<0 : v4=-$7fff
+	if v3=0 : v5=$7fff
+	if v6=0 : v1=limitf(v1,v4,v5)
+	if v6=1 : v1=limit(v1,v4,v5)
+	if v6=2 : trw@(70)=limitf(trw@(70),0.00000001,PI@/2)
+	return
+	
+#deffunc meput str x2,var x1
+	mes x2
+	input x1
+	return
+#defcfunc zfunc double u1
+	if u1=1 : return INF
+	x=u1
+	z=1.0
+	repeat,2
+		if cnt=8 : break
+		zprev=z
+		z+=pow(cnt,-x)
+		if z=zprev : x=INF : break
+	loop
+	if index(x)=0 : return z
+	powx=pow(8,x)
+    w=x/8/powx
+	z+=0.5/powx+8.0/(x-1)/powx+coef@.0*w
+	repeat,1
+	if cnt=20|z=zprev : break
+		w*=(x+2*cnt-1)*(x+2*cnt)/64
+		zprev=z
+		z+=coef@.cnt*w
+	loop
+	return z
+#deffunc Log array op0
+	ddim dad,2
+	dad=logf(op0.0*op0.0+op0.1*op0.1)/2,atan(op0.1,op0.0)
+	op0=dad.0,dad.1
+	return
+#deffunc Exp array op1
+	ddim dad,2
+	dad=expf(op1.0)*cos(op1.1),expf(op1.0)*sin(op1.1)
+	op1=dad.0,dad.1
+	return
+#defcfunc pow1 double u1,double u2
+	ddim xxi,2
+	xxi=u1,0.0
+	Log xxi
+	xxi=xxi.0*u2,xxi.1*u2
+	Exp xxi
+	if u2=0 : xxi=1.0,0.0
+	if u1=1 : xxi=1.0,0.0
+	if u1=0 : xxi=0.0,0.0
+	i@=xxi.1
+	if u2=int(u2) : i@=0.0
+	return xxi.0
+#defcfunc pow2 double u1,double u2,double u3
+	as=pow1(u2,u3)
+	ddim xxxi,2
+	if u1=0 : xxxi=0.0,0.0 : else {
+		xxxi=u1,0.0
+		Log xxxi
+		ddim dad,2
+		dad=xxi.0*xxxi.0-xxi.1*xxxi.1,xxi.0*xxxi.1+xxi.1*xxxi.0
+		xxxi=dad.0,dad.1
+		Exp xxxi
+	}
+	i@=xxxi.1
+	if index(i@)=0 : i@=0.0
+	return xxxi.0
+#defcfunc pow3 double u1,double u2,double u3,double u4
+	as=pow2(u2,u3,u4)
+	ddim xxxxi,2
+	if u1=0 : xxxxi=1.0,0.0 : else {
+		xxxxi=u1,0.0
+		Log xxxxi
+		ddim dad,2
+		dad=xxxi.0*xxxxi.0-xxxi.1*xxxxi.1,xxxi.0*xxxxi.1+xxxi.1*xxxxi.0
+		xxxxi=dad.0,dad.1
+		Exp xxxxi
+	}
+	i@=xxxxi.1
+	if index(i@)=0 : i@=0.0
+	return xxxxi.0
+#defcfunc pow4 double u1,double u2,double u3,double u4,double u5
+	as=pow3(u2,u3,u4,u5)
+	ddim xxxxxi,2
+	if u1=0 : xxxxxi=1.0,0.0 : else {
+		xxxxxi=u1,0.0
+		Log xxxxxi
+		ddim dad,2
+		dad=xxxxi.0*xxxxxi.0-xxxxi.1*xxxxxi.1,xxxxi.0*xxxxxi.1+xxxxi.1*xxxxxi.0
+		xxxxxi=dad.0,dad.1
+		Exp xxxxxi
+	}
+	i@=xxxxxi.1
+	if index(i@)=0 : i@=0.0
+	return xxxxxi.0
+#defcfunc xfunc double u1
+	return pow1(u1,u1)
+#defcfunc xxfunc double u1
+	return pow2(u1,u1,u1)
+#defcfunc xxxfunc double u1
+	return pow3(u1,u1,u1,u1)
+#defcfunc xxxxfunc double u1
+	return pow4(u1,u1,u1,u1,u1)
+#defcfunc dfunc double u1
+	as=trw@(81)/100
+	an1=0.39894228/as
+	an2=expf(-u1*u1/(as*as*2))
+	return an1*an2
+#defcfunc erfunc double u1
+	return sqrt(1.0-expf(-u1*2*u1/PI@))*sgn@(u1)
+#defcfunc erfcfunc double u2
+	return 1.0-erfunc(u2)
+#defcfunc hfunc double u1
+	an=0.5
+	if u1<0 : an=0
+	if u1>0 : an=1
+	return an
+#defcfunc varsin double u1
+	return 1.0-cos(u1)
+#defcfunc covarsin double u1
+	return 1.0-sin(u1)
+#defcfunc varcos double u1
+	return 1.0+sin(u1)
+#defcfunc vartan double u1
+if varcos(u1)=0 : return INF
+	return varsin(u1)/varcos(u1)
+#defcfunc varcot double u1
+if vartan(u1)=0 : return INF
+	return 1.0/vartan(u1)
+#defcfunc varsec double u1
+if varcos(u1)=0 : return INF
+	return 1.0/varcos(u1)
+#defcfunc varcosec double u1
+if varsin(u1)=0 : return INF
+	return 1.0/varsin(u1)
+#defcfunc hav double u1
+	return 0.5*varsin(u1)
+#defcfunc haver double u1
+	return 0.5*covarsin(u1)
+#defcfunc exsin double u1
+if covarsin(u1)=0 : return INF
+	return sin(u1)/covarsin(u1)
+#defcfunc excos double u1
+if varsin(u1)=0 : return INF
+	return cos(u1)/varsin(u1)
+#defcfunc extan double u1
+if excos(u1)=0 : return INF
+	return exsin(u1)/excos(u1)
+#defcfunc excot double u1
+if exsin(u1)=0 : return INF
+	return 1.0/extan(u1)
+#defcfunc exsec double u1
+if excos(u1)=0 : return INF
+	return 1.0/excos(u1)
+#defcfunc excosec double u1
+if exsin(u1)=0 : return INF
+	return 1.0/exsin(u1)
+#defcfunc sinc double u1
+if u1=0 : return 1.0
+	return sin(Pi@*u1)/Pi@/u1
+#defcfunc hsinc double u1
+if u1=0 : return 1.0
+	return sin(u1)/u1
+#defcfunc gd1 double u1
+	return 2.0*atan(expf(u1))-PI@/2
+#defcfunc gd2 double u1
+if cos(u1)=0 : return INF
+an=logf(tan(u1)+1.0/cos(u1))
+	return an
+#defcfunc kafunc double u0,double u1,double u2
+	an=expf(-(u0-u2)*(u0-u2)/(u1*u1*2))/(2.50662827*absf(u1))
+	return an;2012
+#defcfunc kbfunc double u0,double u1,double u2
+	ddim an,2
+	an.0=u0
+	an.1=0.0
+	Log an
+	an.0-=u2
+	Log an
+	an.0*=2
+	an.1*=2
+	Exp an
+	if u0>0 : an.1=0.0
+	an.0=-an.0/(u1*u1*2)
+	an.1=-an.1/(u1*u1*2)
+	Exp an
+	i@=an.1/(2.50662827*absf(u1)*u0)
+	return an.0/(2.50662827*absf(u1)*u0)
+#defcfunc kzfunc int u1
+	an=1.0
+	if u1<0 : return INF
+	if u1=0 : return 1.0
+	repeat u1,1
+	an*=cnt
+	loop
+	return an
+#defcfunc gfuncx double u1
+	v=1.0
+	x=u1
+	while(x<8)
+	v*=x
+	x+
+	wend
+	w=1.0/x/x
+	return expf(((((((((B16/(16*15))*w+(B14/(14*13)))*w+(B12/132))*w+(B10/90))*w+(B8/56))*w+(B6/30))*w+(B4/12))*w+(B2/2))/x+1.83787706640934548/2-logf(v)-x+(x-0.5)*logf(x))
+#defcfunc gfunc double u1
+	if u1>0 : return gfuncx(u1)
+	u2=u1
+	repeat
+		if u2>0 : bnt=cnt : break
+		u2+
+	loop
+	an1=gfuncx(u2)
+	repeat bnt
+		u2-
+		if u2=0 : break
+		an1/=u2
+	loop
+	if u2=0 : return INF
+	if u1>=1 : if an1*sin(Pi@*u1)=0 : return INF : else : an1=Pi@/(an1*sin(Pi@*u1))
+	if u1<1 : an2=an1 : else : an2=an1
+	return an2
+
+#defcfunc r_gamma double d1, double d2
+	d3=logf(gfunc(d1))
+	temp=0.0
+	la=1.0
+	lb=la+d2-d1
+	w=expf(d1*logf(d2)-d2-d3)
+	result=w/lb
+	repeat 1000,2
+		temp=((-d1+cnt-1)*(lb-la)+(d2+cnt)*lb)/cnt
+		la=lb
+		lb=temp
+		w*=(-d1+cnt-1)/cnt
+		temp=w/la/lb
+		previous=result
+		result+=temp
+		if result=previous : break
+	loop
+	return result
+#defcfunc p_gamma double w1, double w2
+	d3=logf(gfunc(w1))
+	if w2>=w1+1 : return 1.0-r_gamma(w1,w2)
+	if w2=0 : return 0
+	if w1!0 : result=expf(w1*logf(w2)-w2-d3)/w1 : else : result=logf(0)
+	term=result
+	repeat 1000,1
+		term*=w2/(w1+cnt)
+		previous=result
+		result+=term
+		if result=previous : break
+	loop
+	return result
+#defcfunc q_gamma double d1, double d2
+	if d2<d1+1 : return 1.0-p_gamma(d1,d2)
+	return r_gamma(d1,d2)
+#defcfunc fgfunc double d1, double d2
+	return q_gamma(d1,d2)/gfunc(d1)
+#defcfunc beta double w1, double w2
+	return (gfunc(w1)*gfunc(w2))/gfunc(w1+w2)
+#defcfunc q_beta double w1, double w2, double w3
+	if w1<=0 : return 0
+	if w2<=0 : return INF
+	if w3<=0 {
+		if w1<1 : return 0
+		if w1=1 : return 1
+		return INF
+	}
+	p1=0.0
+	q1=1.0
+	p2=expf(w2*logf(w1)+w3*logf(absf(1.0-w1))+logf(gfunc(w2+w3))-logf(gfunc(w2))-logf(gfunc(w3)))/w2
+	q2=1.0
+	for k,0,200,0
+		previous=p2
+		d=-(w2+k)*(w2+w3+k)*w1/(w2+k*2)/(w2+k*2+1)
+		p1=p1*d+p2
+		q1=q1*d+q2
+		k+
+		d=k*(w3-k)*w1/(w2+k*2-1)/(w2+k*2)
+		p2=p2*d+p1
+		q2=q2*d+q1
+		if q2=0 : p2=0.0 : _continue
+		p1/=q2
+		q1/=q2
+		p2/=q2
+		q2=1.0
+		if p2=previous : _break
+	next
+	return p2
+#defcfunc p_beta double w1, double w2, double w3
+	if w1<=0 : return 0
+	if w2<=0 : return INF
+	if w3<=0 {
+		if w1<1 : return 0
+		if w1=1 : return 1
+		return INF
+	}
+	if w1>(w2+1)/(w2+w3+2) : return 1.0-q_beta(1.0-w1,w2,w3)
+	p1=0.0
+	q1=1.0
+	p2=expf(w2*logf(w1)+w3*logf(absf(1.0-w1))+logf(gfunc(w2+w3))-logf(gfunc(w2))-logf(gfunc(w3)))/w2
+	q2=1.0
+	for k,0,200,0
+		previous=p2
+		d=-(w2+k)*(w2+w3+k)*w1/(w2+k*2)/(w2+k*2+1)
+		p1=p1*d+p2
+		q1=q1*d+q2
+		k+
+		d=k*(w3-k)*w1/(w2+k*2-1)/(w2+k*2)
+		p2=p2*d+p1
+		q2=q2*d+q1
+		if q2=0 : p2=0.0 : _continue
+		p1/=q2
+		q1/=q2
+		p2/=q2
+		q2=1.0
+		if p2=previous : _break
+	next
+	return p2
+#defcfunc psifunc double u1
+	x=u1
+	v=0.0
+	while(x<8)
+	if x=0 : return INF
+	v+=1.0/x
+	x++
+	wend
+	w=1.0/x/x
+	v +=((((((((B16/16)*w+(B14/14))*w+(B12/12))*w+(B10/10))*w+(B8/8))*w+(B6/6))*w+(B4/4))*w+(B2/2))*w+0.5/x
+	return logf(x)-v
+#defcfunc polfunc int u1, double u3
+	n=u1
+	x=u3
+	k=0
+	u=1.0
+	if u1>0 {
+		for k,1-n,0,1
+			u*=k
+		next
+	}
+	if n=0 : return psifunc(u3)
+	if n=-1 : return logf(gfunc(u3))
+	if n<-1 : return INF
+	v=0.0
+	while (x<8)
+		if x>0{
+			if pow(x,n+1)=0 : return INF
+		}else{
+			if pow1(x,n+1)=0 : return INF
+		}
+		if x>0 : v+=1.0/pow(x,n+1) : else : v+=1.0/pow1(x,n+1)
+		x++
+	wend
+	w=x*x
+	t=double(((((((B16*(n+15)*(n+14)/(w*240)+B14)*(n+13)*(n+12)/(w*182)+B12)*(n+11)*(n+10)/(w*132)+B10)*(n+9)*(n+8)/(w*90)+B8)*(n+7)*(n+6)/(w*56)+B6)*(n+5)*(n+4)/(w*30)+B4)*(n+3)*(n+2)/(w*12)+B2)*(n+1)*n/(w*2)+0.5*n/x+1
+	return u*(t/pow(x,n)+v*n)
+#defcfunc bsfunc double w1,double w2
+	ddim ad,2
+	Bessel ad,w1,w2
+	i@=ad.1
+	return ad.0
+#defcfunc byfunc double w1,double w2
+	ddim ad,2
+	BesseY ad,w1,w2
+	i@=ad.1
+	return ad.0
+#defcfunc bkfunc double w1,double w2
+	ddim ad,2
+	BesseK ad,w1,w2
+	i@=ad.1
+	return ad.0
+#defcfunc bhfunc double w1
+	ddim ad,2
+	BesseH ad,w1
+	i@=ad.1
+	return ad.0
+#defcfunc Hyper double w1,double w2
+	ad=0.0
+	Hyperg ad,w1,w2
+	return ad
+#defcfunc kummerf double w1,double w2,double w3
+	ad=0.0
+	kummer ad,w1,w2,w3
+	return ad
+#defcfunc bifunc double w1,double w2
+	ddim ad,2
+	BesseI ad,w1,w2
+	i@=ad.1
+	return ad.0
+#defcfunc Gauss double w1,double w2,double w3,double w4
+	if absf(w4)>1 : return -INF
+	ad=0.0
+	Gaussf ad,w1,w2,w3,w4
+	return ad
+#defcfunc Ai double w1
+	an=0.0
+	Airy an,w1
+	return an
+#defcfunc Bi double w1
+	an=0.0
+	Biry an,w1
+	return an
+#defcfunc StruveH double w1,double w2
+	ddim an,2
+	Struv1 an,w1,w2
+	i@=an.1
+	return an.0
+#defcfunc StruveL double w1,double w2
+	ddim an,2
+	Struv2 an,w1,w2
+	i@=an.1
+	return an.0
+#defcfunc ber double w1,double w2
+	an=0.0
+	Kelber an,w1,w2
+	return an
+#defcfunc bei double w1,double w2
+	an=0.0
+	Kelbei an,w1,w2
+	return an
+#defcfunc her double w1,double w2
+	an=0.0
+	Kelher an,w1,w2
+	return an
+#defcfunc hei double w1,double w2
+	an=0.0
+	Kelhei an,w1,w2
+	return an
+#defcfunc mfunc double w1,double w2,double w3
+	return expf(-w3/2)*pow1(w3,w2+0.5)*kummerf(w2-w1+0.5,1.0+w2*2,w3)
+#defcfunc wfunc double w1,double w2,double w3
+	an=mfunc(w1,w2,w3)*gfunc(-w2*2)/gfunc(0.5-w2-w1)+mfunc(w1,-w2,w3)*gfunc(w2*2)/gfunc(0.5+w2-w1)
+	return an
+#defcfunc Si_series double u1
+	s=u1
+	t=u1
+	x=-u1*u1
+	for k,3,1000,2
+		t*=x/(k-1)/k
+		u=s
+		s+=t/k
+		if s=u : _break
+	next
+	return s
+#defcfunc Ci_series double u1
+	s=M_C+logf(u1)
+	x=-u1*u1
+	t=1.0
+	for k,2,1000,2
+		t*=x/(k-1)/k
+		u=s
+		s+=t/k
+		if s=u : _break
+	next
+	return s
+#defcfunc Si_asympt double u1
+	gmax=2.0
+	fmax=2.0
+	fmin=0.0
+	gmin=0.0
+	f=0.0
+	g=0.0
+	t=1.0/u1
+	flag=0
+	k=0
+	while(flag!15)
+		f+=t
+		k+
+		t*=k/u1
+		if f<fmax : fmax=f : else : flag|=1
+		g+=t
+		k+
+		t*=k/u1
+		if g<gmax : gmax=g : else : flag|=2
+		f-=t
+		k+
+		t*=k/u1
+		if f>fmin : fmin=f : else : flag|=4
+		g-=t
+		k+
+		t*=k/u1
+		if g>gmin : gmin=g : else : flag|=8
+	wend
+	return (PI@-(fmax+fmin)*cos(u1)-(gmax+gmin)*sin(u1))/2
+#defcfunc Ci_asympt double u1
+	gmax=2.0
+	fmax=2.0
+	fmin=0.0
+	gmin=0.0
+	f=0.0
+	g=0.0
+	t=1.0/u1
+	flag=0
+	k=0
+	while(flag!15)
+		f+=t
+		k+
+		t*=k/u1
+		if f<fmax : fmax=f : else : flag|=1
+		g+=t
+		k+
+		t*=k/u1
+		if g<gmax : gmax=g : else : flag|=2
+		f-=t
+		k+
+		t*=k/u1
+		if f>fmin : fmin=f : else : flag|=4
+		g-=t
+		k+
+		t*=k/u1
+		if g>gmin : gmin=g : else : flag|=8
+	wend
+	return ((fmax+fmin)*sin(u1)-(gmax+gmin)*cos(u1))/2
+#defcfunc Si double u1
+	if u1<0 : return -Si(-u1)
+	if u1<18 : return Si_series(u1)
+	return Si_asympt(u1)
+#defcfunc Si2 double u1
+	return Si(u1)-Pi@/2
+#defcfunc Ci double u1
+	if u1<0 : return -Ci(-u1)
+	if u1<18 : return Ci_series(u1)
+	return Ci_asympt(u1)
+#defcfunc Ei double u1,double u3
+	if u1=0 : return INF
+	;if u1<-7 : i@=PI@ : return 0.0
+	ddim af,2
+	ddim ag,2
+	af=u1,u3
+	LOG af
+	ad=M_C+af.0
+	i@=af.1
+	for k,1,200,1
+		ag=af.0*k,af.1*k
+		EXP ag
+		u=ad
+		ad+=(ag.0/k/kzfunc(k))
+		i@+=(ag.1/k/kzfunc(k))
+		if ad=u : _break
+	next
+	return ad
+#defcfunc li1 double u1
+	if u1=0 : return INF
+	ddim af,2
+	af=u1,0.0
+	LOG af
+	return Ei(af.0,af.1)
+#defcfunc li2 double u1
+	if u1=0 : return INF
+	ddim af,2
+	af=u1,0.0
+	LOG af
+	aw=Ei(af.0,af.1)
+	at=i@
+	aw-=Ei(logf(2),0)
+	i@=at-i@
+	return aw
+#defcfunc chi2 int df,double u1
+	if u1<0 : return INF
+	if df\2=1{
+		chi=sqrt(u1)
+		if df=1 : return kafunc(chi,1,0)*2-1
+		s=chi*expf(-u1/2)/sqrt(PI@*2)
+		t=s
+		for k,40,df,2
+			t*=u1/k
+			s+=t
+		next
+		return 1.0-(1.0-kafunc(chi,1,0)+s)*2
+	}else{
+		s=expf(-u1/2)
+		t=s
+		for k,40,df,2
+			t*=u1/k
+			s+=t
+		next
+		return 1.0-s
+	}
+#defcfunc nfunc double u1
+	return gfunc(u1/2+1)*pow(2,u1/2)*pow(2.0/PI@,-cos(u1*PI@)/4+0.25)
+#defcfunc p_t int df,double u1
+	c2=1.0*df/(u1*u1+df)
+	s=sqrt(1.0-c2)
+	if u1<0 : s=-s
+	p=0.0
+	for i,df\2+2,int(df)+1,2
+		p+=s
+		s*=(1.0*i-1)*c2/i
+	next
+	if df\2=1{
+		return 0.5+(p*sqrt(c2)+atan(t/sqrt(df)))/PI@
+	}else{
+		return (p+1)/2
+	}
+#defcfunc FresnelC double w1
+	if w1<0 : return -FresnelC(-w1)
+	if w1=0 : return 0
+	an=0.0
+	repeat w1*20
+		an+=cos(PI@*cnt*cnt/800)/20
+	loop
+	return an
+#defcfunc FresnelS double w1
+	if w1<0 : return -FresnelS(-w1)
+	if w1=0 : return 0
+	an=0.0
+	repeat w1*20
+		an+=sin(PI@*cnt*cnt/800)/20
+	loop
+	return an
+#defcfunc Shi double w1
+	if w1<0 : return -Shi(-w1)
+	if w1=0 : return 0
+	an=0.0
+	repeat w1*20
+		an+=sinh(0.05*cnt,1)/20
+	loop
+	return an
+#defcfunc Chi double w1
+	if w1<0 : return -Chi(-w1)
+	if w1=0 : return 0
+	an=0.0
+	repeat w1*20
+		an+=cosh(0.05*cnt,1)/20
+	loop
+	return an
+#deffunc pl int w2
+	if trx@=0|dpm@=0 {
+		picload ""+strf("%03d",trx@)+".jpg",w2^1
+	}
+	return
+#defcfunc elmeet double w1,double w2
+	if w2=0 : return INF
+	if w1=int(w1)&w1>1{
+		return 2.0*w2*elmeet(w1-1,w2)-2.0*(w1-1)*elmeet(w1-2,w2)
+	}
+	if w1=0 : return 1.0
+	if w1=1 : return 2.0*w2
+	return pow1(2,w1)*sqrt(PI@)*(kummerf(-w1/2,0.5,w2*w2)/gfunc(0.5-w1/2)-kummerf(0.5-w1/2,1.5,w2*w2)*2*w2/gfunc(-w1/2))
+#global
+texc="y=f(x) (なし)\ny=abs(f(x)) (絶対値)\ny=Γf(x)] (天井関数)\ny=floor(f(x)) (床(整数部分)関数)\ny=frc(f(x)) (少数部分関数)\ny=round(f(x)) (四捨五入)"
+dxdy=300;+-32
+dydx=0;240;+-24
+disx=ginfo_dispx*2
+disy=ginfo_dispy*2
+buffer 6,disx,disy;π
+screen 0,ginfo_dispx,ginfo_dispy,2,(ginfo(20)-dxdy)/2-320,(ginfo(21)-560-19)/2,dxdy+640,560+19
+oncmd  gosub *OnCommand, WM_COMMAND
+SetWindowLong hwnd, -16, 0xCF0000
+title kj
+newmenu hfilemenu,1
+addmenu hfilemenu,"bmpで保存(&S)",CMD_SAVE
+addmenu hfilemenu,"終了(&Q)",CMD_QUIT
+newmenu hhelpmenu,1
+addmenu hhelpmenu,"バージョン情報(&M)",CMD_MESS
+newmenu hmenu,0	
+addmenu hmenu, "ファイル(&F)",hfilemenu, 0x10
+addmenu hmenu, "ヘルプ(&H)",hhelpmenu, 0x10
+applymenu hmenu
+unline=1
+PI=3.14159265358979323846
+gsel 6
+mato=dxdy-1
+dxdy=320
+dydx=280
+gsel 0
+gosub*drawU
+gsel 0
+pos 0,0
+treebox mato,ginfo_winy,$50B10007
+treeid=stat
+oncmd gosub *OnSize,5
+treeadd 0,"陽関数",0,0,0,0
+tb.32=stat
+treeadd tb.32,"初等関数",0,0,0,0
+tb(0)=stat
+treeadd tb(0),"代数関数",0,0,0,0
+tb(1)=stat
+treeadd tb(1),"有理関数",0,0,0,0
+tb(2)=stat
+treeadd tb(2),"整関数",0,0,0,1
+treeadd tb(2),"分数関数",0,0,0,2
+treesel stat,2
+treeadd tb(1),"無理関数",0,0,0,0
+tb(3)=stat
+treeadd tb(3),"無理関数",0,0,0,3
+treesel stat,2
+treeadd tb(0),"超越関数",0,0,0,0
+tb(4)=stat
+treeadd tb(4),"三角関数",0,0,0,0
+tb(5)=stat
+treeadd tb(5),"sin",0,0,0,4
+treeadd tb(5),"cos",0,0,0,5
+treeadd tb(5),"tan",0,0,0,6
+treeadd tb(5),"cot",0,0,0,13
+treeadd tb(5),"sec",0,0,0,14
+treeadd tb(5),"cosec(csc)",0,0,0,15
+treesel stat,2
+treeadd tb(4),"逆三角関数",0,0,0,0
+tb(6)=stat
+treeadd tb(6),"sin^-1(Arcsin)",0,0,0,28
+treeadd tb(6),"cos^-1(Arccos)",0,0,0,29
+treeadd tb(6),"tan^-1(Arctan)",0,0,0,30
+treeadd tb(6),"cot^-1",0,0,0,114
+treeadd tb(6),"sec^-1",0,0,0,115
+treeadd tb(6),"cosec^-1",0,0,0,116
+treesel stat,2
+treeadd tb(4),"拡張三角関数",0,0,0,0
+tb.33=stat
+treeadd tb.33,"versin",0,0,0,93
+treeadd tb.33,"coversin",0,0,0,94
+treeadd tb.33,"vercos",0,0,0,95
+treeadd tb.33,"vertan",0,0,0,96
+treeadd tb.33,"vercot",0,0,0,97
+treeadd tb.33,"versec",0,0,0,98
+treeadd tb.33,"vercosec",0,0,0,99
+treeadd tb.33,"haversin",0,0,0,100
+treeadd tb.33,"hacoversin",0,0,0,110
+treeadd tb.33,"exsin",0,0,0,105
+treeadd tb.33,"excos",0,0,0,106
+treeadd tb.33,"extan",0,0,0,107
+treeadd tb.33,"excot",0,0,0,108
+treeadd tb.33,"exsec",0,0,0,101
+treeadd tb.33,"excosec",0,0,0,104
+treeadd tb.33,"sinc(正規)",0,0,0,146
+treeadd tb.33,"sinc(非正規)",0,0,0,147
+treeadd tb.33,"Si",0,0,0,164
+treeadd tb.33,"si",0,0,0,174
+treeadd tb.33,"Ci",0,0,0,165
+treeadd tb.33,"Chi",0,0,0,175
+treeadd tb.33,"Shi",0,0,0,176
+treesel stat,2
+treeadd tb(4),"指数関数",0,0,0,0
+tb(7)=stat
+treeadd tb(7),"指数関数",0,0,0,7
+treeadd tb(7),"指数関数(exp)",0,0,0,109
+treeadd tb(7),"複素指数関数(cis)",0,0,0,221
+treeadd tb(7),"Ei",0,0,0,166
+treeadd tb(7),"シグモイド関数",0,0,0,89
+treeadd tb(7),"グーデルマン関数",0,0,0,102
+treeadd tb(7),"qブラケット",0,0,0,215
+treeadd tb(7),"双曲線関数",0,0,0,0
+tb(8)=stat
+treeadd tb(8),"sinh",0,0,0,8
+treeadd tb(8),"cosh",0,0,0,9
+treeadd tb(8),"tanh",0,0,0,10
+treeadd tb(8),"coth",0,0,0,16
+treeadd tb(8),"sech",0,0,0,17
+treeadd tb(8),"cosech",0,0,0,18
+treesel stat,2
+treeadd tb(7),"逆双曲線関数",0,0,0,0
+tb(9)=stat
+treeadd tb(9),"sinh^-1",0,0,0,31
+treeadd tb(9),"cosh^-1",0,0,0,32
+treeadd tb(9),"tanh^-1",0,0,0,33
+treeadd tb(9),"coth^-1",0,0,0,111
+treeadd tb(9),"sech^-1",0,0,0,112
+treeadd tb(9),"cosech^-1",0,0,0,113
+treesel stat,2
+treeadd tb(7),"懸垂線関数",0,0,0,0
+tb.10=stat
+treeadd tb.10,"カテナリ",0,0,0,35
+treesel stat,2
+treeadd tb(4),"対数関数",0,0,0,0
+tb.11=stat
+treeadd tb.11,"対数(log)関数",0,0,0,11
+treeadd tb.11,"対数(lg)関数",0,0,0,69
+treeadd tb.11,"対数(ln)関数",0,0,0,70
+treeadd tb.11,"li",0,0,0,167
+treeadd tb.11,"Li",0,0,0,168
+treeadd tb.11,"逆グーデルマン関数",0,0,0,103
+treesel stat,2
+treeadd tb(0),"指示関数",0,0,0,0
+tb.13=stat
+treeadd tb.13,"窓関数",0,0,0,0
+tb.34=stat
+treeadd tb.34,"方形窓関数",0,0,0,127
+treeadd tb.34,"ハニング窓関数",0,0,0,128
+treeadd tb.34,"ハミング窓関数",0,0,0,129
+treeadd tb.34,"ガウス窓関数",0,0,0,130
+treeadd tb.34,"ブラックマン窓関数",0,0,0,131
+treeadd tb.34,"バートレット窓関数",0,0,0,132
+treeadd tb.34,"指数窓関数",0,0,0,133
+treeadd tb.34,"一般化ハミング窓関数",0,0,0,134
+treeadd tb.34,"バートレット-ハン窓関数",0,0,0,135
+treeadd tb.34,"ナットール窓関数",0,0,0,136
+treeadd tb.34,"ブラックマン-ハリス窓関数",0,0,0,137
+treeadd tb.34,"ブラックマン-ナットール窓関数",0,0,0,138
+treeadd tb.34,"フラット・トップ窓関数",0,0,0,139
+treeadd tb.34,"パルザン窓関数",0,0,0,140
+treeadd tb.34,"赤池窓関数",0,0,0,141
+treeadd tb.34,"ウェルチ窓関数",0,0,0,142
+treeadd tb.34,"サイン窓関数",0,0,0,143
+treeadd tb.34,"Vorbis窓関数",0,0,0,144
+treeadd tb.34,"Lanczos窓関数",0,0,0,145
+treesel stat,2
+treeadd tb.13,"へヴィサイドの階段関数",0,0,0,64
+treeadd tb.13,"符号関数",0,0,0,79
+treeadd tb.32,"特殊関数",0,0,0,0
+tb.16=stat
+treeadd tb.16,"楕円曲線",0,0,0,56
+treeadd tb.16,"シッソイド",0,0,0,41
+treeadd tb.16,"ウィッチ",0,0,0,87
+treeadd tb.16,"オイラー積分",0,0,0,0
+tb.17=stat
+treeadd tb.17,"第1種 B関数",0,0,0,0
+tb.35=stat
+treeadd tb.35,"B関数",0,0,0,68
+treeadd tb.35,"不完全B関数",0,0,0,178
+treeadd tb.35,"正則化された不完全B関数",0,0,0,179
+treesel stat,2
+treeadd tb.17,"第2種 Γ関数",0,0,0,0
+tb.18=stat
+treeadd tb.18,"Γ関数",0,0,0,61
+treeadd tb.18,"Γ関数逆数",0,0,0,73
+treeadd tb.18,"lnΓ関数",0,0,0,74
+treeadd tb.18,"ディΓ関数",0,0,0,158
+treeadd tb.18,"トリΓ関数",0,0,0,161
+treeadd tb.18,"ポリΓ関数",0,0,0,159
+treeadd tb.18,"第1種不完全Γ関数",0,0,0,173
+treeadd tb.18,"第2種不完全Γ関数",0,0,0,172
+treeadd tb.18,"正則化された不完全Γ関数",0,0,0,177
+treeadd tb.18,"ポッホハマー関数",0,0,0,160
+treesel stat,2
+treeadd tb.16,"超関数",0,0,0,0
+tb.19=stat
+treeadd tb.19,"ディラックのδ関数",0,0,0,62
+treeadd tb.19,"リーマンのζ関数",0,0,0,63
+treeadd tb.19,"ランベルトのW関数",0,0,0,92
+treesel stat,2
+treeadd tb.16,"超幾何関数",0,0,0,0
+tb.20=stat
+treeadd tb.20,"ベッセル関数",0,0,0,0
+tb.36=stat
+treeadd tb.36,"第1種ベッセル関数",0,0,0,71
+treeadd tb.36,"第2種ベッセル関数",0,0,0,72
+treeadd tb.36,"第1種ハンケル関数",0,0,0,222
+treeadd tb.36,"第2種ハンケル関数",0,0,0,223
+treeadd tb.36,"第1種変形ベッセル関数",0,0,0,186
+treeadd tb.36,"第2種変形ベッセル関数",0,0,0,187
+treeadd tb.36,"第1種球ベッセル関数",0,0,0,191
+treeadd tb.36,"第2種球ベッセル関数",0,0,0,192
+treeadd tb.36,"第1種変形球ベッセル関数",0,0,0,193
+treeadd tb.36,"第2種変形球ベッセル関数",0,0,0,194
+treeadd tb.36,"シュトルーベ関数",0,0,0,189
+treeadd tb.36,"変形シュトルーベ関数",0,0,0,190
+treeadd tb.36,"エアリー関数(Ai)",0,0,0,180
+treeadd tb.36,"エアリー関数(Bi)",0,0,0,188
+treeadd tb.36,"第1種ケルビン関数(ber)",0,0,0,207
+treeadd tb.36,"第1種ケルビン関数(bei)",0,0,0,208
+treeadd tb.36,"第2種ケルビン関数(ker)",0,0,0,211
+treeadd tb.36,"第2種ケルビン関数(kei)",0,0,0,212
+treeadd tb.36,"第3種ケルビン関数(her)",0,0,0,209
+treeadd tb.36,"第3種ケルビン関数(hei)",0,0,0,210
+treeadd tb.36,"テオドルセン関数",0,0,0,213
+treesel stat,2
+treeadd tb.20,"合流型超幾何関数",0,0,0,0
+tb.37=stat
+treeadd tb.37,"超幾何関数(0F1)",0,0,0,182
+treeadd tb.37,"超幾何関数(1F1)",0,0,0,151
+treeadd tb.37,"超幾何関数(2F1)",0,0,0,181
+;treeadd tb.37,"超幾何関数(U)",0,0,0,205
+treeadd tb.37,"正規化された超幾何関数(0F1)",0,0,0,183
+treeadd tb.37,"正規化された超幾何関数(1F1)",0,0,0,184
+treeadd tb.37,"正規化された超幾何関数(2F1)",0,0,0,185
+treeadd tb.37,"ホイッタカー関数(M)",0,0,0,152
+treeadd tb.37,"ホイッタカー関数(W)",0,0,0,153
+treeadd tb.37,"ルジャンドル関数",0,0,0,196
+treeadd tb.37,"ルジャンドル陪関数",0,0,0,197
+treeadd tb.37,"正規化されたルジャンドル関数",0,0,0,203
+treeadd tb.37,"第1種チェビシェフ関数",0,0,0,198
+treeadd tb.37,"第2種チェビシェフ関数",0,0,0,199
+treeadd tb.37,"エルミート関数",0,0,0,195
+treeadd tb.37,"正規化されたエルミート関数",0,0,0,204
+treeadd tb.37,"ラゲール関数",0,0,0,200
+treeadd tb.37,"ラゲール陪関数",0,0,0,201
+treeadd tb.37,"正規化されたラゲール関数",0,0,0,202
+treesel stat,2
+treeadd tb.16,"確率関数",0,0,0,0
+tb.14=stat
+treeadd tb.14,"誤差関数",0,0,0,78
+treeadd tb.14,"相補誤差関数",0,0,0,171
+treeadd tb.14,"フレネルのC積分関数",0,0,0,169
+treeadd tb.14,"フレネルのS積分関数",0,0,0,170
+treeadd tb.14,"標準正規分布",0,0,0,67
+treeadd tb.14,"正規分布密度関数",0,0,0,66
+treeadd tb.14,"正規分布累積分布関数",0,0,0,76
+treeadd tb.14,"対数正規分布密度関数",0,0,0,117
+treeadd tb.14,"ガンマ分布密度関数",0,0,0,118
+treeadd tb.14,"指数分布密度関数",0,0,0,119
+treeadd tb.14,"両側指数分布密度関数",0,0,0,120
+treeadd tb.14,"カイ2乗分布密度関数",0,0,0,121
+treeadd tb.14,"カイ2乗分布累積分布関数",0,0,0,163
+treeadd tb.14,"B分布密度関数",0,0,0,122
+treeadd tb.14,"t分布密度関数",0,0,0,123
+treeadd tb.14,"t分布累積分布関数",0,0,0,162
+treeadd tb.14,"コーシーの分布密度関数",0,0,0,124
+treeadd tb.14,"指数1/2片側安定分布密度関数",0,0,0,125
+treeadd tb.14,"一様分布密度関数",0,0,0,126
+treesel stat,2
+treeadd tb.32,"その他特殊関数",0,0,0,0
+tb.21=stat
+treeadd tb.21,"順列的関数",0,0,0,0
+tb.22=stat
+treeadd tb.22,"階乗",0,0,0,57
+treeadd tb.22,"二重階乗",0,0,0,216
+treeadd tb.22,"フィボナッチ数列",0,0,0,219
+treeadd tb.22,"リュカ数列",0,0,0,220
+treeadd tb.22,"一般化された階乗",0,0,0,217
+treeadd tb.22,"一般化された二重階乗",0,0,0,218
+treeadd tb.22,"一般化されたフィボナッチ関数",0,0,0,75
+treeadd tb.22,"一般化されたリュカ関数",0,0,0,148
+treesel stat,2
+treeadd tb.21,"フリーエ級数",0,0,0,0
+tb.23=stat
+treeadd tb.23,"矩形波",0,0,0,37
+treeadd tb.23,"鋸波",0,0,0,38
+treeadd tb.23,"三角波",0,0,0,214
+;ワイヤストラスの関数
+treesel stat,2
+treeadd 0,"陰関数",0,0,0,0
+tb.15=stat
+treeadd tb.15,"デカルトの双葉線",0,0,0,44
+treeadd tb.15,"カッシーニの卵形",0,0,0,58
+treeadd tb.15,"レムニスケート",0,0,0,39
+treeadd tb.15,"ネイルの放物線",0,0,0,65
+treeadd tb.15,"真珠形曲線",0,0,0,80
+treeadd tb.15,"尖点4次曲線",0,0,0,82
+treeadd tb.15,"2尖点4次曲線",0,0,0,156
+treeadd tb.15,"チルンハウゼンの3次曲線",0,0,0,84
+treeadd tb.15,"アーネシの魔女",0,0,0,43
+treeadd tb.15,"コンコイド",0,0,0,40
+treeadd tb.15,"ストロフォイド",0,0,0,42
+treeadd tb.15,"ニュートンの蛇形曲線",0,0,0,83
+treeadd tb.15,"パスカルのリマソン",0,0,0,45
+treeadd tb.15,"ラメ曲線",0,0,0,81
+treeadd tb.15,"悪魔の曲線",0,0,0,154
+treeadd tb.15,"アルキメデスの螺旋",0,0,0,48
+treeadd tb.15,"カッパー曲線",0,0,0,86
+treeadd tb.15,"対数螺旋",0,0,0,54
+treeadd tb.15,"バラ曲線",0,0,0,55
+treeadd tb.15,"ヒッピアスの円積曲線",0,0,0,85
+treeadd tb.15,"放物螺旋",0,0,0,53
+treeadd tb.15,"リチュース",0,0,0,52
+treesel stat,2
+treeadd 0,"媒介変数",0,0,0,0
+tb.24=stat
+treeadd tb.24,"懸垂線関数",0,0,0,0
+tb.25=stat
+treeadd tb.25,"トラクトリクス",0,0,0,36
+treesel stat,2
+treeadd tb.24,"双曲",0,0,0,0
+tb.26=stat
+treeadd tb.26,"双曲線",0,0,0,27
+treeadd tb.26,"双曲螺旋",0,0,0,46
+treesel stat,2
+treeadd tb.24,"デカルトの正葉線",0,0,0,51
+treeadd tb.24,"リサージュ曲線",0,0,0,12
+treeadd tb.24,"インボリュート曲線",0,0,0,155
+treeadd tb.24,"サイクロイド",0,0,0,0
+tb.27=stat
+treeadd tb.27,"直線サイクロイド",0,0,0,20
+treeadd tb.27,"エピサイクロイド",0,0,0,0
+tb.28=stat
+treeadd tb.28,"エピサイクロイド",0,0,0,21
+treeadd tb.28,"カーディオイド",0,0,0,34
+treeadd tb.28,"ネフロイド",0,0,0,47
+treesel stat,2
+treeadd tb.27,"ハイポサイクロイド",0,0,0,0
+tb.29=stat
+treeadd tb.29,"ハイポサイクロイド",0,0,0,22
+treeadd tb.29,"デルトロイド",0,0,0,26
+treeadd tb.29,"アステロイド",0,0,0,19
+treesel stat,2
+treeadd tb.24,"トロコイド",0,0,0,0
+tb.30=stat
+treeadd tb.30,"直線トロコイド",0,0,0,23
+treeadd tb.30,"エピトロコイド",0,0,0,24
+treeadd tb.30,"ハイポトロコイド",0,0,0,25
+treesel stat,2
+treeadd 0,"付属",0,0,0,0
+tb.31=stat
+treeadd tb.31,"ルーローの3角形",0,0,0,59
+treeadd tb.31,"Γ曲線",0,0,0,60
+treeadd tb.31,"巻き貝",0,0,0,49
+treeadd tb.31,"台座",0,0,0,157
+treeadd tb.31,"失敗作A",0,0,0,50
+treeadd tb.31,"失敗作B",0,0,0,88
+treeadd tb.31,"自乗",0,0,0,90
+treeadd tb.31,"自乗乗",0,0,0,91
+treeadd tb.31,"自乗乗乗",0,0,0,149
+treeadd tb.31,"自乗乗乗乗",0,0,0,150
+;treeadd tb.31,"COMMAND",0,0,0,206
+treesel stat,2
+kal.2=tx
+ginfo_vxm=kal.0
+ginfo_vym=kal.1
+buffer 8,tx*disx,tx*disy
+gcopy 6,0,0,tx*disx,tx*disy
+gsel 0
+pos mato,0
+gcopy 6,tx*disx/2-(ginfo_winx-mato)/2+kal.0,tx*disy/2-ginfo_winy/2+kal.1,ginfo_winx-mato+1,ginfo_winy+1
+unline=0
+screen 2,0,0,2
+screen 3,220,230,6
+SetWindowLong hwnd,-16,GetWindowLong(hwnd,-16)^$2000000
+onexit gosub*exit1
+gsel 4,-1
+gsel 0,1
+redraw 1
+*ken
+gsel 0,1
+title kj
+SetWindowPos objinfo(treeid,2),1,0,0,mato,ginfo_winy,1
+gosub*exit2
+*ken_
+gsel 0,0
+treeget trv,0
+treeget trx,7,trv
+if setwin=1{
+	/*
+	screen 2,372,180,6
+	syscolor 4 : boxf : syscolor 7 : sysfont 17
+	TITLE"全関数共通設定(F5：描画,F6：重ねて描画)"
+	objmode 1
+	meput"定数α",risk.0
+	;meput"定数β",risk.1
+	setwin=2
+	gsel 2,1
+	*/
+	gsel 2,-1
+	setwin=2
+screen 2,220,230,4
+cls
+syscolor 15
+boxf
+sysfont 17
+title"グラフオプション"
+color 0,0,0
+pos 0,0
+objsize 110,115
+button "格子線",*kan
+sendmsg objinfo_hwnd(stat),$f4,7,0
+button "軸線,数値",*kan
+sendmsg objinfo_hwnd(stat),$f4,7,0
+objsize 110,152
+pos 110,0
+button "グラフ線",*kan
+sendmsg objinfo_hwnd(stat),$f4,7,0
+objsize 110,76
+pos 110,152
+button "表示",*kan
+sendmsg objinfo_hwnd(stat),$f4,7,0
+;pos 110,176
+;objsize 110,52
+;button gosub"戻る",*kan
+pos 5,15
+objsize 100
+combox in.9,120,"なし\n格子\n破線格子"
+combox in.10,120,"x : a , y : a\nx : π, y : 1"
+objsize 35
+pos 5,69
+winobj "STATIC","格子の間隔",0,$50000000,65,12
+sendmsg objinfo(stat,2),$30,GetStockObject(17)
+pos 70,63
+input xt
+objsize 100
+pos 5
+button gosub"格子の色を変更",*colors2
+pos 5,130
+combox in.8,120,"なし\nX ,Y軸\nX ,Y軸 + 数値"
+button gosub"軸,数値の色を変更",*colors3
+objsize 35
+pos,183
+winobj "STATIC","文字の大きさ",0,$50000000,65,12
+sendmsg objinfo(stat,2),$30,GetStockObject(17)
+pos 70,178
+input kakkak,,,2
+objsize 40
+pos 5,207
+winobj "STATIC","数値の間隔",0,$50000000,60,12
+sendmsg objinfo(stat,2),$30,GetStockObject(17)
+pos 65,202
+input kakkad
+objsize 100
+pos 115,15
+combox unline,120,"通常描画\n破線描画"
+pos 115,40
+button gosub"実数の色を変更",*colors
+button gosub"実部の色を変更",*colors5
+button gosub"虚部の色を変更",*colors6
+pos 115,122
+combox in.21,120,"\n微分(強制)"
+pos 115,170
+objsize 75
+winobj "STATIC","倍率",0,$50000000,35,12
+sendmsg objinfo(stat,2),$30,GetStockObject(17)
+pos 140,166
+input tx
+objsize 100
+pos 115,195
+button gosub"背景色を変更",*colors4
+gsel 2,1
+}
+if trx!_trx {
+setwin=0
+if trx!0 {
+	screen 2,600,180,6,,,372
+	syscolor 4 : boxf : syscolor 7 : sysfont 17
+	TITLE"諸関数設定(F4：次へ)"
+	objmode 1
+}
+if trx=1{
+meput"乗数n",trw.222
+meput"比例定数a",trw(1)
+meput"定数p",trw(3)
+pos 80,ginfo_cy-35
+meput"定数q",trw(2)
+pos 160,ginfo_cy-35
+objsize 140
+mes"値変換の種類"
+combox in(1),,texc
+pos 100,20
+pl
+}
+if trx=2{
+meput"乗数n",trw.223
+meput"比例定数k",trw(4)
+meput"定数p",trw(6)
+pos 80,ginfo_cy-35
+meput"定数q",trw(5)
+pos 160,ginfo_cy-35
+objsize 140
+mes"値変換の種類"
+combox in(3),,texc
+pos 100,20
+pl
+}
+if trx=3{
+meput"乗数n",trw.224
+meput"定数a",trw(7)
+meput"定数b",trw(8)
+pos 100,20
+pl
+}
+if trx=4{
+meput "定数a",trw(9)
+mes"和名:正弦"
+pos 100,20
+pl
+}
+if trx=5{
+meput "定数a",trw(10)
+mes"和名:余弦"
+pos 100,20
+pl
+}
+if trx=6{
+meput "定数a",trw(11)
+mes"和名:正接"
+pos 100,20
+pl
+}
+if trx=13{
+meput "定数a",trw(32)
+mes"和名:余接"
+pos 100,20
+pl
+}
+if trx=14{
+meput "定数a",trw(33)
+mes"和名:正割"
+pos 100,20
+pl
+}
+if trx=15{
+meput "定数a",trw(34)
+mes"和名:余割"
+pos 100,20
+pl
+}
+if trx=7{
+meput "定数a",trw(12)
+pos 100,20
+pl
+}
+if trx=8{
+meput "定数a",trw(13)
+pos 100,20
+pl
+}
+if trx=9{
+meput "定数a",trw(14)
+pos 100,20
+pl
+}
+if trx=10{
+meput "定数a",trw(15)
+pos 100,20
+pl
+}
+if trx=11{
+meput "底a",trw(16)
+pos 100,20
+pl
+}
+if trx=12{
+meput "定数a",trw(17)
+meput "定数b",trw(18)
+meput "定数c",trw(19)
+pos 100,20
+pl
+}
+if trx=16{
+meput "定数a",trw(20)
+pos 100,20
+pl
+}
+if trx=17{
+meput "定数a",trw(21)
+pos 100,20
+pl
+}
+if trx=18{
+meput "定数a",trw(22)
+pos 100,20
+pl
+}
+if trx=19{
+meput "定数a",trw(23)
+mes"和名:星芒形"
+pos 100,20
+pl
+}
+if trx=26{
+meput "定数a",trw(24)
+mes"和名:三芒形"
+pos 100,20
+pl
+}
+if trx=20{
+meput "円の半径a",trw(25)
+mes"和名:擺線"
+pos 100,20
+pl
+}
+if trx=21{
+meput "固定円の半径a",trw(26)
+meput "回転円の半径b",trw(27)
+mes"和名:外擺線"
+pl
+}
+if trx=34{
+meput "定数a",trw(28)
+mes"和名:心臓形"
+pos 100,20
+pl
+}
+if trx=41{
+meput "定数a",trw(35)
+mes"和名:疾走線"
+pos 100,20
+pl
+}
+if trx=22{
+meput "固定円の半径a",trw(30)
+meput "回転円の半径b",trw(31)
+mes"和名:内擺線"
+pl
+}
+if trx=23{
+meput "回転円の半径a",trw(36)
+meput "回転円の中心からの距離b",trw(37)
+mes"和名:余擺線"
+pl
+}
+if trx=24{
+meput "固定円の半径a",trw(94)
+meput "回転円の半径b",trw(95)
+pos 115,0
+meput "固定円の中心から定点までの距離c",trw(96)
+mes"和名:外余擺線"
+pos 0,ginfo_cy+24
+pl
+}
+if trx=25{
+meput "固定円の半径a",trw(38)
+meput "回転円の半径b",trw(39)
+pos 115,0
+meput "固定円の中心から定点までの距離p",trw(40)
+mes"和名:内余擺線"
+pos 0,ginfo_cy+24
+pl
+}
+if trx=35{
+meput "定数a",trw(40)
+mes"和名:懸垂線"
+pos 100,20
+pl
+}
+if trx=36{
+meput "定数a",trw(41)
+mes"和名:追跡線"
+pos 100,20
+pl
+}
+if trx=37{
+meput "定数a",trw(43)
+meput "計算する項数b",in(4)
+pl
+}
+if trx=38{
+meput "定数a",trw(42)
+meput "計算する項数b",in(5)
+pl
+}
+if trx=39{
+meput "定数a",trw(44)
+pos 100,20
+pl
+}
+if trx=40{
+meput "定数a",trw(45)
+mes"和名:螺獅線"
+pos 100,20
+pl
+}
+if trx=42{
+meput "定数a",trw(47)
+pos 20,50
+pl
+}
+if trx=43{
+meput "定数a",trw(48)
+pos 100,20
+pl
+}
+if trx=155{
+meput "定数a",trw(49)
+pos 100,20
+pl
+}
+if trx=45{
+meput "固定円の半径a",trw(50)
+meput "固定円の中心から定点までの距離b",trw(51)
+mes"和名:蝸牛形"
+pl
+}
+if trx=27{
+meput "定数a",trw(52)
+meput "定数b",trw(53)
+pos 100,20
+pl
+}
+if trx=46{
+meput "定数a",trw(54)
+pos 100,20
+pl
+}
+if trx=28{
+meput "定数a",trw(55)
+mes"和名:逆正弦"
+pos 100,20
+pl
+}
+if trx=29{
+meput "定数a",trw(56)
+mes"和名:逆余弦"
+pos 100,20
+pl
+}
+if trx=30{
+meput "定数a",trw(57)
+mes"和名:逆正接"
+pos 100,20
+pl
+}
+if trx=31{
+meput "定数a",trw(58)
+pos 15,50
+pl
+}
+if trx=32{
+meput "定数a",trw(59)
+pos 15,50
+pl
+}
+if trx=33{
+meput "定数a",trw(60)
+pos 25,50
+pl
+}
+if trx=47{
+meput "定数a",trw(61)
+mes"和名:腎臓形"
+pos 100,20
+pl
+}
+if trx=48{
+meput "定数a",trw(62)
+pos 100,20
+pl
+}
+if trx=49{
+meput "巻き数",trw(63)
+pos 100,20
+pl
+}
+if trx=50{
+meput "定数a",trw(64)
+meput "定数b",trw(65)
+pos 100,20
+pl
+}
+if trx=51{
+meput "定数a",trw(66)
+pos 100,20
+pl
+}
+if trx=52{
+meput "定数a",trw(67)
+mes"和名:喇叭線"
+pos 100,20
+pl
+}
+if trx=53{
+meput "定数a",trw(68)
+pos 100,20
+pl
+}
+if trx=54{
+meput "定数a",trw(69)
+meput "定数b(MAX π/2)",trw(70)
+pos 100,20
+pl
+}
+if trx=55{
+meput "定数a",trw(71)
+meput "定数b",trw(72)
+pos 100,20
+pl
+}
+if trx=56{
+meput "定数a",trw(73)
+meput "定数b",trw(74)
+pos 100,20
+pl
+}
+if trx=57{
+pl 1
+}
+if trx=58{
+meput "定数a",trw(75)
+meput "定数c",trw(77)
+pl
+}
+if trx=59{
+meput "定数a",trw(78)
+mes"注) 原点が重心です。"
+}
+if trx=60{
+meput "定数a",trw(79)
+objsize 300,30
+chkbox "原点から描画する",in(6)
+mes "使用する式"
+cvb="sin√n\n(log n)^4  別名:ネッシー\nn^(3/2)    別名:アーチ群\nn^3/1013  別名:雄牛\nn^3/1002  別名:闘牛場\nn^2*0.141593\nn^2*0.234372\nn^2*0.0666818\nn^2*-0.250851\nn^2*-0.00339372\nn^2*-0.334613\nn^2*-0.252869\nn^2*-0.0113469\nn^2*-0.0324963\nn^2*-0.306828\nn^2*-0.185212\nn^2*-0.349805\nn^2/320\nn^2/321\nn^2/322\nn^2/323"
+combox in(7),150,cvb
+pos 100,5
+pl
+}
+if trx=61{
+meput "Y軸倍率",trw(80)
+pos 100,20
+pl
+}
+if trx=62{
+meput "定数σ",trw(81)
+mes" 注) σを極限にしていません。"
+pl
+}
+if trx=63{
+pl 1
+}
+if trx=64{
+pl 1
+}
+if trx=65{
+meput "定数a",trw(97)
+pos 100,20
+pl
+}
+if trx=66{
+meput "標準偏差値σ(σ>0)",trw(82)
+meput "平均値μ",trw(83)
+pos 100,20
+pl
+}
+if trx=67{
+pl 1
+}
+if trx=68{
+meput "定数y",trw(84)
+pl
+}
+if trx=69{
+pl 1
+}
+if trx=70{
+pl 1
+}
+if trx=71{
+meput "定数a",trw(85)
+pl
+}
+if trx=72{
+meput "定数a",trw(86)
+pl
+}
+if trx=73{
+meput "定数a",trw(87)
+pos 100,20
+pl
+}
+if trx=74{
+meput "定数a",trw(88)
+pl
+}
+if trx=75{
+pl 1
+}
+if trx=76{
+meput "定数σ(σ≠0)",trw(89)
+meput "定数μ",trw(90)
+pos 100,20
+pl
+}
+if trx=77{
+meput "定数a",trw(91)
+}
+if trx=78{
+meput "倍数a",trw(92)
+pos 50,50
+pl
+}
+if trx=79{
+pl 1
+}
+if trx=80{
+meput "乗数m",trw(98)
+meput "乗数n",trw(99)
+meput "乗数p",trw(100)
+pos 64,0
+meput "定数a",trw(101)
+meput "定数k",trw(102)
+pos 128,20
+pl
+}
+if trx=81{
+meput "乗数n",in.12
+meput "定数a",trw(104)
+meput "定数b",trw(105)
+pos 100,20
+pl
+}
+if trx=82{
+meput "定数a",trw(106)
+meput "定数b",trw(107)
+pos 100,20
+pl
+}
+if trx=83{
+meput "倍数a",trw(103)
+pos 100,20
+pl
+}
+if trx=84{
+pl 1
+}
+if trx=85{
+pl 1
+}
+if trx=86{
+meput "定数a",trw.108
+pos 100,20
+pl
+}
+if trx=87{
+meput "定数a(a>0)",trw(93)
+pos 100,20
+pl
+}
+if trx=88{
+objsize 300,30
+mes "使用する式"
+cvb={"[数値設定a]
+2t/π*sin(t)        眼鏡
+2t/π*sin(t*2)      蝶
+2t/π*sin(t*2.2)    菊
+2t/π/sin(t)        木目
+2t/π/sin(t*0.9)    3Dミルククラウン
+2t/π/sin(t*1.5)    排水溝
+2t/π/sin(t*1.725)  星
+2t/π/sin(t*2)      照準
+2t/π/sin(t*6)      炸裂
+2t/π/sin(t*99)     黒い太陽"}
+combox in.13,150,cvb
+mes "[数値設定選択時]\n"
+kak=ginfo_cy
+mes"2t/π"
+objsize 35
+kak2=ginfo(14)
+pos kak2,kak
+combox in.14,48,"/\n*"
+objsize
+pos kak2+35,kak
+mes"sin t*"
+pos ginfo(14)+kak2+35,kak
+input trw.109
+pos 100,40
+pl
+}
+if trx=89{
+pl 1
+}
+if trx=90{
+pl 1
+}
+if trx=91{
+pl 1
+}
+if trx=92{
+meput "定数a",trw.110
+pos 100,20
+pl
+}
+if trx=93{
+meput "定数a",trw.111
+mes"和名:正矢"
+pos 100,20
+pl
+}
+if trx=94{
+meput "定数a",trw.112
+mes"和名:余矢"
+pos 80,20
+pl
+}
+if trx=95{
+meput "定数a",trw.113
+pos 100,20
+pl
+}
+if trx=96{
+meput "定数a",trw.114
+pos 100,20
+pl
+}
+if trx=97{
+meput "定数a",trw.115
+pos 100,20
+pl
+}
+if trx=98{
+meput "定数a",trw.116
+pos 100,20
+pl
+}
+if trx=99{
+meput "定数a",trw.117
+pos 100,20
+pl
+}
+if trx=100{
+meput "定数a",trw.118
+mes"和名:半正矢"
+pos 50,50
+pl
+}
+if trx=101{
+meput "定数a",trw.119
+mes"和名:外正割"
+pos 100,20
+pl
+}
+if trx=102{
+meput "定数a",trw.120
+pos 50,50
+pl
+}
+if trx=103{
+meput "定数a",trw.121
+pos 50,50
+pl
+}
+if trx=104{
+meput "定数a",trw.122
+mes"和名:外余割"
+pos 100,20
+pl
+}
+if trx=105{
+meput "定数a",trw.123
+mes"和名:外正弦"
+pos 100,20
+pl
+}
+if trx=106{
+meput "定数a",trw.124
+mes"和名:外余弦"
+pos 100,20
+pl
+}
+if trx=107{
+meput "定数a",trw.125
+mes"和名:外正接"
+pos 100,20
+pl
+}
+if trx=108{
+meput "定数a",trw.126
+mes"和名:外余接"
+pos 100,20
+pl
+}
+if trx=109{
+pl 1
+}
+if trx=110{
+meput "定数a",trw.127
+mes"和名:半余矢"
+pos 50,50
+pl
+}
+if trx=111{
+meput "定数a",trw.128
+pos 50,50
+pl
+}
+if trx=112{
+meput "定数a",trw.129
+pos 10,50
+pl
+}
+if trx=113{
+meput "定数a",trw.130
+pos 2,50
+pl
+}
+if trx=114{
+meput "定数a",trw.131
+pos 100,20
+pl
+}
+if trx=115{
+meput "定数a",trw.132
+pos 100,20
+pl
+}
+if trx=116{
+meput "定数a",trw.133
+pos 100,20
+pl
+}
+if trx=117{
+meput "標準偏差値σ(σ>0)",trw.134
+meput "平均値μ",trw.135
+pos 20,75
+pl
+}
+if trx=118{
+meput "標準偏差値σ(σ>0)",trw.136
+meput "次元p(p>0)",trw.137
+pos 100,20
+pl
+}
+if trx=119{
+meput "標準偏差値σ(σ>0)",trw.138
+meput "平均値μ",trw.139
+pos 100,20
+pl
+}
+if trx=120{
+meput "標準偏差値σ(σ>0)",trw.140
+pos 100,20
+pl
+}
+if trx=121{
+meput "自由度n(nは正の整数)",in.15
+pos 20,50
+pl
+}
+if trx=122{
+meput "次元p(p>0)",trw.141
+meput "次元q(q>0)",trw.142
+pos 20,75
+pl
+}
+if trx=123{
+meput "自由度n(nは正の整数)",in.16
+pos 12,50
+pl
+}
+if trx=124{
+meput "標準偏差値σ(σ>0)",trw.143
+meput "平均値μ",trw.144
+pos 100,20
+pl
+}
+if trx=125{
+meput "定数c",trw.147
+pos 50,50
+pl
+}
+if trx=126{
+meput "点α(β>α)",trw.145
+meput "点β(β>α)",trw.146
+pos 100,20
+pl
+}
+if trx=127{
+meput "対象範囲n",trw.148
+pos 20,50
+pl
+}
+if trx=128{
+pl 1
+}
+if trx=129{
+pl 1
+}
+if trx=130{
+meput "対象範囲n",trw.149
+meput "偏差値σ",trw.150
+pos 0,80
+pl
+}
+if trx=131{
+pl 1
+}
+if trx=132{
+pl 1
+}
+if trx=133{
+meput "定数T(T≠0)",trw.151
+pos 20,40
+pl
+}
+if trx=134{
+meput "定数a",trw.152
+pos 0,40
+pl
+}
+if trx>134&trx<145{
+pl 1
+}
+if trx=145{
+meput "定数n(n≠0)",trw.153
+pos 5,40
+pl
+}
+if trx=146{
+meput "定数a",trw.154
+pos 100,20
+pl
+}
+if trx=147{
+meput "定数a",trw.155
+pos 100,20
+pl
+}
+if trx=148{
+pl 1
+}
+if trx=149{
+pl 1
+}
+if trx=150{
+pl 1
+}
+if trx=151{
+meput "定数a",trw.156
+meput "定数c",trw.157
+pos 70,50
+pl
+}
+if trx=152{
+meput "定数k",trw.158
+meput "定数m",trw.159
+width 450
+pos 0,70
+pl
+}
+if trx=153{
+meput "定数k",trw.160
+meput "定数m",trw.161
+width 520
+pos 0,70
+pl
+}
+if trx=154{
+meput "定数a",trw.162
+meput "定数b",trw.163
+pos 70,50
+pl
+}
+if trx=44{
+meput "定数a",trw(46)
+pos 70,50
+pl
+}
+if trx=156{
+meput "定数a",trw(76)
+pos 70,50
+pl
+}
+if trx=157{
+meput "定数a",trw.164
+meput "定数b",trw.165
+pos 70,50
+pl
+}
+if trx=158{
+meput "定数a",trw.166
+pos 70,50
+pl
+}
+if trx=159{
+meput "乗数n(0≦n)",in.17
+meput "定数a",trw.167
+pos 70,50
+pl
+}
+if trx=160{
+meput "定数a",trw.168
+pos 70,50
+pl
+}
+if trx=161{
+meput "定数a",trw.169
+pos 70,50
+pl
+}
+if trx=162{
+meput "自由度n(nは正の整数)",in.18
+meput "定数a",trw.170
+pos 70,50
+;pl
+}
+if trx=163{
+meput "自由度k(kは正の整数)",in.19
+pos 70,50
+;pl
+}
+if trx=164{
+pl 1
+}
+if trx=165{
+pl 1
+}
+if trx=166{
+pl 1
+}
+if trx=167{
+pl 1
+}
+if trx=168{
+pl 1
+}
+if trx=169{
+pl 1
+}
+if trx=170{
+pl 1
+}
+if trx=171{
+meput "倍数a",trw.172
+pos 70,50
+pl
+}
+if trx=172{
+meput "定数a",trw.173
+pos 20,50
+pl
+}
+if trx=173{
+meput "定数a",trw.175
+pos 20,50
+pl
+}
+if trx=174{
+pl 1
+}
+if trx=175{
+pl 1
+}
+if trx=176{
+pl 1
+}
+if trx=177{
+meput "定数a",trw.177
+meput "定数b",trw.178
+pos 70,50
+pl
+}
+if trx=178{
+meput "定数z",trw.180
+meput "定数a",trw.179
+pos 70,50
+pl
+}
+if trx=179{
+meput "定数z",trw.181
+meput "定数a",trw.182
+pos 70,50
+pl
+}
+if trx=180{
+pl 1
+}
+if trx=181{
+meput "定数a",trw.183
+meput "定数b",trw.184
+meput "定数c",trw.185
+pl
+}
+if trx=182{
+meput "定数a",trw.186
+pos 70,50
+pl
+}
+if trx=183{
+meput "定数a",trw.187
+pos 70,50
+pl
+}
+if trx=184{
+meput "定数a",trw.188
+meput "定数c",trw.189
+pos 70,50
+pl
+}
+if trx=185{
+meput "定数a",trw.190
+meput "定数b",trw.191
+meput "定数c",trw.192
+pos 70,50
+pl
+}
+if trx=186{
+meput "定数a",trw.193
+pos 70,50
+pl
+}
+if trx=187{
+meput "定数a(a>0)",trw.194
+pos 70,50
+pl
+}
+if trx=188{
+pl 1
+}
+if trx=189{
+meput "定数a",trw.195
+width 450
+pos 0,50
+pl
+}
+if trx=190{
+meput "定数a",trw.196
+width 450
+pos 0,50
+pl
+}
+if trx=191{
+meput "定数a",trw.197
+pos 70,50
+pl
+}
+if trx=192{
+meput "定数a",trw.198
+pos 70,50
+pl
+}
+if trx=193{
+meput "定数a",trw.199
+pos 70,50
+pl
+}
+if trx=194{
+meput "定数a",trw.200
+pos 70,50
+pl
+}
+if trx=195{
+meput "定数a",trw.201
+width 600
+pl
+}
+if trx=196{
+meput "定数a",trw.202
+width 510
+pl
+}
+if trx=197{
+meput "定数m",trw.203
+meput "定数n",trw.206
+pl
+}
+if trx=198{
+meput "定数a",trw.204
+pl
+}
+if trx=199{
+meput "定数a",trw.205
+pl
+}
+if trx=200{
+meput "定数a",trw.207
+pos 70,50
+pl
+}
+if trx=201{
+meput "定数m",trw.208
+meput "定数n",trw.209
+width 450
+pl
+}
+if trx=202{
+meput "定数a",trw.210
+pos 70,50
+pl
+}
+if trx=203{
+meput "定数a",trw.211
+pos 70,50
+pl
+}
+if trx=204{
+meput "定数a",trw.212
+pos 70,50
+pl
+}
+if trx=205{
+meput "定数a",trw.213
+meput "定数b",trw.214
+;pl
+}
+if trx=206{
+mes"y="
+input commad
+;pl
+}
+if trx=207{
+meput "定数a",trw.215
+pos 70,50
+pl
+}
+if trx=208{
+meput "定数a",trw.216
+pos 70,50
+pl
+}
+if trx=209{
+meput "定数a",trw.217
+pos 70,50
+pl
+}
+if trx=210{
+meput "定数a",trw.218
+pos 70,50
+pl
+}
+if trx=211{
+meput "定数a",trw.219
+pos 70,50
+pl
+}
+if trx=212{
+meput "定数a",trw.220
+pos 70,50
+pl
+}
+if trx=213{
+pl 1
+}
+if trx=214{
+meput "計算する項数n",in.20
+pos 70,50
+pl
+}
+if trx=215{
+meput "アナログq",trw.221
+pos 70,50
+pl
+}
+if trx=216{
+pl 1
+}
+if trx=217{
+pl 1
+}
+if trx=218{
+pl 1
+}
+if trx=219{
+pl 1
+}
+if trx=220{
+pl 1
+}
+if trx=221{
+pl 1
+}
+if trx=222{
+meput "定数a",trw.222
+pos 70,50
+pl
+}
+if trx=223{
+meput "定数a",trw.223
+pos 70,50
+pl
+}
+if trx!0 : gsel 2,1
+_trx=trx
+}
+if setwin=2{
+	getkey key,116
+	if key=1 : msa=0 : gsel 2,-1 : gsel 0 : gosub*drawU : goto*endoff
+	getkey key,117
+	if key=1 : msa=1 : gsel 2,-1 : gsel 0 : gosub*drawU : goto*endoff
+}else{
+	getkey key,115
+	if key=1 : gosub*r
+}
+if ginfo(2)=0&ginfo(4)+mato<ginfo(0){
+	stick key,$350
+	if key&16 {
+		kal.0=0.0
+		kal.1=0.0
+		kal.2=tx
+		ginfo_vxm=0
+		ginfo_vym=0
+		buffer 8,tx*disx,tx*disy
+		pos 0,0
+		gcopy 6,0,0,tx*disx,tx*disy
+		gsel 0
+		pos mato,0
+		gcopy 6,tx*disx/2-(ginfo_winx-mato)/2,tx*disy/2-ginfo_winy/2,ginfo_winx-mato+1,ginfo_winy+1
+		await 20
+	}
+	if key&128 {
+		PostMessage hwnd, WM_CLOSE,0,0
+	}
+	if key&256 {
+		mxm=ginfo(0)-ginfo(4)-3
+		mym=ginfo(1)-ginfo(5)-41
+		SetClassLong hwnd,-12,LoadCursor($7F03)
+		goto*main2
+	}
+	;if key&32 : gosub*kan
+	/*if zoomy=1 {
+	mouse -1,-1
+	goto*main3
+	}*/
+}
+await 20
+goto*ken_
+*r
+foreach trw
+trw(cnt)=limitf(trw(cnt),-$ffff,$ffff)
+loop
+bmit in(0),1,10,1
+bmit in(2),1,10,1
+bmit in.11,1,10,1
+bmit in(4),1,1000,1
+bmit in(5),1,1000,1
+bmit in.12,1,1000,1
+bmit in.20,1,1000,1
+bmit trw(17),1,10
+bmit trw(18),1
+bmit trw(19),1
+bmit trw(23)
+bmit trw(24)
+bmit trw(26),1
+bmit trw(27),1
+bmit trw(28),1
+bmit trw(30),1
+bmit trw(31),1
+bmit trw(35),1
+bmit trw(44)
+bmit trw(55)
+bmit trw(56)
+bmit trw(59)
+bmit trw(61),1
+bmit trw(63),1,5
+bmit trw(65),1
+bmit trw(66),1
+bmit trw(67),1
+bmit trw(69),1
+bmit trw(70),,,2
+bmit trw(71),1
+bmit trw(72),1
+bmit trw(75)
+bmit trw(77)
+bmit trw(78)
+bmit trw(89)
+bmit trw(93)
+bmit trw(97)
+bmit trw.148,1
+bmit trw.149,1
+bmit trw.150,1
+bmit trw.151,1
+in.15=limit(in.15,1,$ffff)
+in.16=limit(in.16,1,$ffff)
+in.17=limit(in.17,0e,$ffff)
+in.18=limit(in.18,1,$ffff)
+in.19=limit(in.19,1,$ffff)
+if tx=0 : tx=0.0001
+lie
+f=0.0
+x=0.0
+y=0.0
+t=0.0
+f_=0.0
+x_=0.0
+y_=0.0
+t_=0.0
+if trx=0 : return
+setwin=1
+return
+*endoff
+if CTRL : unline=pho
+unline--
+buffer 8,tx*disx,tx*disy
+gcopy 6,0,0,tx*disx,tx*disy
+gsel 0
+pos mato,0
+ginfo_vxm=limit(kal.0,-kal.2*disx/2+((ginfo_winx-mato)/2),kal.2*disx/2-((ginfo_winx-mato)/2))
+ginfo_vym=limit(kal.1,-kal.2*disy/2+(ginfo_winy/2),kal.2*disy/2-(ginfo_winy/2))
+gcopy 6,tx*disx/2-(ginfo_winx-mato)/2+ginfo_vxm,tx*disy/2-ginfo_winy/2+ginfo_vym,ginfo_winx-mato+1,ginfo_winy+1
+title kj
+goto*ken
+*OnCommand
+switch (wparam & 0xFFFF)
+case CMD_QUIT
+PostMessage hwnd, WM_CLOSE,0,0
+swbreak
+case CMD_SAVE
+dialog "bmp",17,"ﾋﾞｯﾄ ﾏｯﾌﾟ"
+if stat=1 {
+	buffer 45,ginfo_winx-mato+1,ginfo_winy+1
+	gcopy 0,mato,0,ginfo_winx+1,ginfo_winy+1
+	bmpsave getpath(refstr,1)+".bmp"
+}
+gsel,1
+chdir dir_max
+swbreak
+case CMD_MESS
+gsel
+EnableWindow hwnd,0
+gsel 7,2
+objsel 1
+swbreak
+case CMD_SETTING
+gosub*hiraku
+swbreak
+default
+swbreak
+swend
+return
+*reset
+color fsr,fsg,fsb
+if in.9 {
+	if xt!0{
+		FOR f,0,int(tx*disy/2),int(tx*xt*20)
+		LINE2 -1,dydx+239+f,tx*disx,dydx+239+f
+		LINE2 -1,dydx+239-f,tx*disx,dydx+239-f
+		next
+	}
+	if in.10 {
+		FOR f,0,int(tx*disx/2),int(3.15*tx*20)
+		LINE2 dxdy+319+f,-1,dxdy+319+f,tx*disy
+		LINE2 dxdy+319-f,-1,dxdy+319-f,tx*disy
+		next
+	}else{
+		if xt!0{
+			FOR f,0,int(tx*disx/2),int(tx*xt*20)
+			LINE2 dxdy+319+f,-1,dxdy+319+f,tx*disy
+			LINE2 dxdy+319-f,-1,dxdy+319-f,tx*disy
+			next
+		}
+	}
+}
+color zsr,zsg,zsb
+if in.8=2 {
+	kakkak=abs(kakkak)
+	if kakkak!0{
+		font msgothic,kakkak,16
+		for zw,0,int(tx*75),kakkad
+		z=""+zw
+		pos dxdy+319-strlen(z)*((kakkak+1)/2),-tx*20*zw+240+dydx
+		mes z
+		z=""+(-zw)
+		pos dxdy+319-strlen(z)*((kakkak+1)/2),tx*20*zw+240+dydx
+		mes z
+		next
+	}
+	kakkad=abs(kakkad)
+	if kakkad!0{
+		if in.10{
+			for zw,kakkad,int(tx*100),kakkad
+			z=""+(-zw)+"π"
+			if zw=1 : z="π"
+			if zw=-1 : z="-π"
+			pos -pi*20*zw+dxdy+319-strlen(z)*int((kakkak+1)/2),240+dydx
+			mes z
+			z=""+zw+"π"
+			if zw=1 : z="π"
+			if zw=-1 : z="-π"
+			pos pi*20*zw+dxdy+319-strlen(z)*int((kakkak+1)/2),240+dydx
+			mes z
+			next
+		}else{
+			for zw,0,int(tx*100),kakkad
+			z=""+(-zw)
+			pos -tx*20*zw+dxdy+319-strlen(z)*((kakkak+1)/2),240+dydx
+			mes z
+			z=""+zw
+			pos tx*20*zw+dxdy+319-strlen(z)*((kakkak+1)/2),240+dydx
+			mes z
+			next
+		}
+	}
+	font msgothic,kakkak+2,16
+	;ginfo_2x=ginfo_winx-639
+	;ginfo_2y=ginfo_winy-557
+	;dxdy+640,560+19
+	if ginfo_vym<=0 : pos dxdy+312,dydx-40+ginfo_vym : else : pos dxdy+312,dydx+500+ginfo_vym
+	mes "Y"
+	if ginfo_vxm>=0 : pos dxdy+632+ginfo_vxm,240+dydx : else : pos dxdy+ginfo_vxm,240+dydx
+	mes "X"
+}
+if in.8 {
+	circle dxdy+317,237+dydx,dxdy+322,242+dydx,1
+	line@hsp dxdy-tx*disx/2+310,239+dydx,dxdy+tx*disx/2+330,239+dydx
+	line@hsp dxdy+319,-tx*disy/2+240+dydx,dxdy+319,tx*disy/2+240+dydx
+}
+pos dxdy+319,239+dydx
+return
+*exit1
+if wparam : gsel wparam,-1 : gsel 0,1 : EnableWindow hwnd,1 : return
+*mutex_end
+if mutex_handle!0 : CloseHandle mutex_handle
+end
+*exit2
+if exit3=0 : exit3=1 : treesel tb.32,2
+if trx=1|trx=2 : treesel tb(2),0
+if trx=3 : treesel tb(3),0
+if (trx>3&trx<7)|(trx>12&trx<16) : treesel tb(5),0
+if (trx>92&trx<109&trx!103&trx!102)|trx=146|trx=147|trx=164|trx=165|(trx>173&trx<177) : treesel tb.33,0
+if (trx>27&trx<31)|(trx>113&trx<117) : treesel tb(6),0
+if trx=7|trx=89|trx=102|trx=109|trx=166|trx=215|trx=221 : treesel tb(7),0
+if (trx>7&trx<11)|(trx>15&trx<19)  : treesel tb(8),0
+if trx>30&trx<34|trx>110&trx<114 : treesel tb(9),0
+if trx=35 : treesel tb.10,0
+if trx=11|trx=69|trx=70|trx=103|trx=167|trx=168 : treesel tb.11,0
+if (trx=48|(trx>51&trx<59)|trx=65|(trx>79&trx<87)|(trx>38&trx<46)|trx=154|trx=156)&trx!57&trx!56&trx!41 : treesel tb.15,0
+if trx=41|trx=87|trx=56 : treesel tb.16,0
+if trx=12|trx=155|trx=51 : treesel tb.24,0
+if trx=36 : treesel tb.25,0
+if trx=20 : treesel tb.27,0
+if trx=21|trx=34|trx=47 : treesel tb.28,0
+if trx=19|trx=22|trx=26 : treesel tb.29,0
+if trx>22&trx<26 : treesel tb.30,0
+if trx=37|trx=38|trx=214 : treesel tb.23,0
+if trx=46|trx=27 : treesel tb.26,0
+if trx=49|trx=50|trx=59|trx=60|trx=88|trx=90|trx=91|trx=149|trx=150|trx=157|trx=206 : treesel tb.31,0
+if trx=66|trx=67|trx=76|trx=78|(trx>116&trx<127)|(trx>161&trx<164)|(trx>168&trx<172) : treesel tb.14,0
+if trx=64|trx=79 : treesel tb.13,0
+if trx=68|trx=178|trx=179 : treesel tb.35,0
+if trx=62|trx=63|trx=92 : treesel tb.19,0
+if (trx>150&trx<154)|(trx>180&trx<186)|(trx>194&trx<206) : treesel tb.37,0
+if trx=71|trx=72|trx=180|(trx>185&trx<195)|(trx>206&trx<214)|trx=222|trx=223 : treesel tb.36,0
+if trx=57|trx=75|trx=148|(trx>215&trx<221) : treesel tb.22,0
+if trx=61|trx=73|trx=74|(trx>157&trx<162)|trx=172|trx=173|trx=177 : treesel tb.18,0
+if (trx>126&trx<146) : treesel tb.34,0
+return
+*colors
+gsel 2,1
+dialog ,32,
+if stat=1 {
+	sr=ginfo_r
+	sg=ginfo_g
+	sb=ginfo_b
+}else{
+	sr=0
+	sg=0
+	sb=0
+}
+gsel 2,1
+return
+*colors2
+gsel 2,1
+dialog ,32,
+if stat=1 {
+	fsr=ginfo_r
+	fsg=ginfo_g
+	fsb=ginfo_b
+}else{
+	fsr=128
+	fsg=128
+	fsb=150
+}
+gsel 2,1
+return
+*colors3
+gsel 2,1
+dialog ,32,
+if stat=1 {
+	zsr=ginfo_r
+	zsg=ginfo_g
+	zsb=ginfo_b
+}else{
+	zsr=0
+	zsg=0
+	zsb=0
+}
+gsel 2,1
+return
+*colors4
+gsel 2,1
+dialog ,32,
+if stat=1 {
+	hsr=ginfo_r
+	hsg=ginfo_g
+	hsb=ginfo_b
+}else{
+	hsr=255
+	hsg=255
+	hsb=255
+}
+gsel 2,1
+return
+*colors5
+gsel 2,1
+dialog ,32,
+if stat=1 {
+	hsrr=ginfo_r
+	hsgr=ginfo_g
+	hsbr=ginfo_b
+}else{
+	hsrr=255
+	hsgr=0
+	hsbr=0
+}
+gsel 2,1
+return
+*colors6
+gsel 2,1
+dialog ,32,
+if stat=1 {
+	hsri=ginfo_r
+	hsgi=ginfo_g
+	hsbi=ginfo_b
+}else{
+	hsri=0
+	hsgi=0
+	hsbi=255
+}
+gsel 2,1
+return
+*kan
+gsel
+EnableWindow hwnd,1
+gsel 7,-1
+gsel 3,-1
+gsel 0,2
+gsel 0,1
+return
+*main2
+if kal.2<=0.5 : kal.0=0.0 : kal.1=0.0 : SetClassLong hwnd,-12,LoadCursor($7F00) : goto *ken_
+stick key,$300
+pos mato,0
+gcopy 8,kal.2*disx/2-((ginfo_winx-mato)/2)+ginfo_vxm,kal.2*disy/2-(ginfo_winy/2)+ginfo_vym,ginfo_winx-mato+1,ginfo_winy+1
+if (key&$100)=0 : kal.0=1.0*ginfo_vxm : kal.1=1.0*ginfo_vym : SetClassLong hwnd,-12,LoadCursor($7F00) : goto *ken_
+if mxm-(ginfo(0)-ginfo(4)-3)+kal.0>kal.2*disx/2-((ginfo_winx-mato)/2) : mxm=kal.2*disx/2-((ginfo_winx-mato)/2)+(ginfo(0)-ginfo(4)-3)-kal.0
+if mym-(ginfo(1)-ginfo(5)-41)+kal.1>kal.2*disy/2-(ginfo_winy/2) : mym=kal.2*disy/2-(ginfo_winy/2)+(ginfo(1)-ginfo(5)-41)-kal.1
+if mxm-(ginfo(0)-ginfo(4)-3)+kal.0<-kal.2*disx/2+((ginfo_winx-mato)/2) : mxm=-kal.2*disx/2+((ginfo_winx-mato)/2)+(ginfo(0)-ginfo(4)-3)-kal.0
+if mym-(ginfo(1)-ginfo(5)-41)+kal.1<-kal.2*disy/2+(ginfo_winy/2) : mym=-kal.2*disy/2+(ginfo_winy/2)+(ginfo(1)-ginfo(5)-41)-kal.1
+ginfo_vxm=limit(mxm-(ginfo(0)-ginfo(4)-3)+kal.0,-kal.2*disx/2+((ginfo_winx-mato)/2),kal.2*disx/2-((ginfo_winx-mato)/2))
+ginfo_vym=limit(mym-(ginfo(1)-ginfo(5)-41)+kal.1,-kal.2*disy/2+(ginfo_winy/2),kal.2*disy/2-(ginfo_winy/2))
+await
+goto*main2
+*hiraku
+gsel 0,1
+EnableWindow hwnd,0
+return
+*OnSize
+if ginfo(2)=0 {
+	SetWindowPos objinfo(treeid,2),1,0,0,mato,ginfo_winy,0
+	ginfo_vxm=limit(kal.0,-tx*disx/2+((ginfo_winx-mato)/2),tx*disx/2-((ginfo_winx-mato)/2))
+	ginfo_vym=limit(kal.1,-tx*disy/2+(ginfo_winy/2),tx*disy/2-(ginfo_winy/2))
+	pos mato,0
+	gcopy 8,tx*disx/2-((ginfo_winx-mato)/2)+ginfo_vxm,tx*disy/2-(ginfo_winy/2)+ginfo_vym,ginfo_winx-mato+1,ginfo_winy+1
+}
+return
+*drawU
+ginfo_2x=ginfo_winx
+ginfo_2y=ginfo_winy
+getkey key,17
+if key=1 : CTRL=1 : else : CTRL=0
+getkey key,18
+if key=1 : ALT=1 : else : ALT=0
+gsel 6
+if kal.2!tx|msa=0 {
+	dxdy=tx*disx/2-320
+	dydx=tx*disy/2-240
+	kal.0=kal.0*tx/kal.2
+	kal.1=kal.1*tx/kal.2
+	buffer 6,tx*disx,tx*disy
+	color hsr,hsg,hsb
+	boxf
+	gosub*reset
+	kal.2=tx
+	ginfo_vxm=kal.0
+	ginfo_vym=kal.1
+}
+unline++
+if CTRL : pho=unline : unline=2
+if ALT {
+	dialog ,32,
+	if stat=1 {
+		sr=ginfo_r
+		sg=ginfo_g
+		sb=ginfo_b
+	}
+}
+color sr,sg,sb
+#include"DRAW2.hsp"
+return

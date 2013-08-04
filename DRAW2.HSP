@@ -1,0 +1,1346 @@
+f=0.0
+fd=0.0
+i=0.0
+id=0.0
+x=0.0
+y=0.0
+t=0.0
+f_=0.0
+fd_=0.0
+i_=0.0
+id_=0.0
+x_=0.0
+y_=0.0
+t_=0.0
+fm=0
+if trx=49 {
+	pos 319+dxdy,239+dydx
+	repeat 63*trw(63)
+		x=319+dxdy-cos(0.1*cnt)*t/trw(63)*tx
+		y=239-sin(0.1*cnt)*t/trw(63)*tx+dydx
+		line x,y
+		line x,y,319+dxdy,239+dydx,1
+		t+=4
+	loop
+	goto*endoff
+}
+if trx=12 {
+	repeat 1800,1
+		t=0.005*cnt
+		y=239-cos(t*trw(19))*20*trw(17)*tx+dydx
+		x=319+sin(t*trw(18))*20*trw(17)*tx
+		if cnt=1 : pos x+dxdy,y
+		line x+dxdy,y
+	loop
+}
+if trx=19|trx=26 {
+	if trx=26 {
+		t_=trw(24)
+		y_=t_*2
+	}else{
+		t_=trw(23)
+		y_=t_*3
+	}
+	repeat 1000,-500
+		t=0.0+cnt
+		x=y_*cos(t/20)*20+t_*cos(y_*t/20/t_)*20+319+dxdy
+		y=-(y_*sin(t/20)*20-t_*sin(y_*t/20/t_)*20)+239+dydx
+		if cnt!-500 : line x,y : else : pos x,y
+	loop
+}
+if trx=20 {
+	t_=trw(25)*20
+	pos 640+dxdy
+	if t_<0 : pos 0
+	repeat 2000,-1000
+		t=(0.0+cnt)/30
+		x=319+dxdy-(t-sin(t))*t_
+		y=239-(1.0-cos(t))*t_+dydx
+		line x,y
+	loop
+}
+if trx=34 {
+	t_=trw(28)
+	repeat 2000,-1000
+		t=0.1*cnt
+		x=319+dxdy-t_*cos(t/2)*40-t_*cos(t)*20
+		y=239-t_*sin(t/2)*40-t_*sin(t)*20+dydx
+		if cnt=-1000 : pos x,y : else : line x,y
+	loop
+}
+if trx=21 {
+	x_=trw(26)
+	y_=trw(27)
+	repeat 2000,-1000
+		t=0.0+cnt
+		x=(x_+y_)*cos(t/20)*20-y_*cos((x_+y_)*t/20/y_)*20+319+dxdy
+		y=-(x_+y_)*sin(t/20)*20+y_*sin((x_+y_)*t/20/y_)*20+239+dydx
+		if cnt=-1000 : pos x,y : else : line x,y
+	loop
+}
+if trx=22 {
+	x_=trw(30)
+	y_=trw(31)
+	repeat 2000,-1000
+		t=0.05*cnt
+		x=(x_-y_)*cos(t)*20+y_*cos((x_-y_)*t/y_)*20+319+dxdy
+		y=-(x_-y_)*sin(t)*20-y_*sin((x_-y_)*t/y_)*20+239+dydx
+		if cnt=-1000 : pos x,y : else : line x,y
+	loop
+}
+if trx=23 {
+	x_=-trw(37)*20
+	y_=trw(36)*20
+	repeat 2000,-1000
+		t=0.1*cnt/3
+		x=t*x_-y_*sin(t)+319+dxdy
+		y=x_-y_*cos(t)+239+dydx
+		if cnt!-1000 : line x,y : else : pos x,y
+	loop
+}
+if trx=24 {
+	t_=trw(94)
+	x_=trw(95)
+	y_=trw(96)
+	repeat 2000,-1000
+		t=0.05*cnt
+		x=(t_+x_)*cos(t)*20-x_*y_*cos((t_+x_)*t/x_)*20+319+dxdy
+		y=-(t_+x_)*sin(t)*20-x_*y_*sin((t_+x_)*t/x_)*20+239+dydx
+		if cnt!-1000 : line x,y
+		pos x,y
+	loop
+}
+if trx=25 {
+	t_=trw(38)
+	x_=trw(39)-t_
+	y_=trw(40)
+	repeat 2000,-1000
+		t=0.05*cnt
+		x=x_*cos(t)*20+t_*y_*cos(x_*t/t_)*20+319+dxdy
+		y=-x_*sin(t)*20-t_*y_*sin(x_*t/t_)*20+239+dydx
+		if cnt!-1000 : line x,y
+		pos x,y
+	loop
+}
+if trx=36 {
+	t_=trw(41)
+	pos _f,f+dydx
+	repeat 1000,-500
+		t=0.05*cnt
+		x=t_*(logf(tan(t/2))+cos(t))*20+319+dxdy
+		y=-t_*sin(t)*20+239+dydx
+		if (t_>0&y>239)|(t_<0&y<240) : pos x,y : continue
+		if cnt!-500 : line x,y : else : pos x,y
+	loop
+}
+if trx=155 {
+	pos 319+dxdy+trw(49)*20,239+dydx
+	repeat 750/trw(49)
+		t=0.05*(cnt)
+		y=-trw(49)*(sin(t)-t*cos(t))*20
+		x=trw(49)*(cos(t)+t*sin(t))*20
+		line x+dxdy+319,y+239+dydx
+	loop
+}
+if trx=50 {
+	repeat 250
+		t=0.05*(cnt)
+		y=-(trw(64)*cos(t)*sin(t)+trw(65)*sin(t))*20*tx
+		x=(trw(65)*cos(t))*20*tx
+		if cnt : line x+dxdy+319,y+239+dydx
+		pos x+dxdy+319,y+239+dydx
+	loop
+	goto*endoff
+}
+if trx=27 {
+	pos 0,239+dydx
+	repeat 4
+		f_=cnt
+		if f_=0|f_=3 : f=trw(52)
+		if f_=1|f_=2 : f=-trw(52)
+		pos f*20+318+dxdy,239+dydx
+		repeat 600
+			t=0.05*cnt
+			y=-(trw(53)*sinh(t,1))*20
+			x=(trw(52)*cosh(t,1))*20
+			if f_=1|f_=2 : x=-x
+			if f_=3|f_=2 : y=-y
+			if y>721|y<-719 : continue
+			if x>dxdy+340|x<-dxdy-339 : continue
+			line x+dxdy+319,y+239+dydx
+		loop
+	loop
+}
+if trx=46 {
+	pos 10000,239+dydx
+	repeat 130*trw(54),1
+		t=0.05*cnt
+		y=-trw(54)*sin(t)/t*20
+		x=trw(54)*cos(t)/t*20
+		line x+dxdy+319,y+239+dydx
+	loop
+}
+if trx=47 {
+	f_=trw(61)
+	repeat 2000,-1000
+		t=0.05*cnt
+		x=f_*3*cos(t)*20-f_*cos(t*3)*20+319+dxdy
+		y=-f_*3*sin(t)*20+f_*sin(t*3)*20+239+dydx
+		if cnt!-1000 : line x,y : else : pos x,y
+	loop
+}
+if trx=51 {
+	pos 319+dxdy,239+dydx
+	repeat 800*trw.66,1
+		t=0.01*cnt
+		x=(trw(66)*t*60)/(t*T*T+1)
+		y=t*(trw(66)*t*60)/(t*T*T+1)
+		line x+319+dxdy,239-y+dydx
+	loop
+	repeat 2
+		t_=cnt
+		pos 319+dxdy,239+dydx
+		repeat 1000,-1000
+			t=0.01*cnt
+			if T=-1 : pos x,y: break
+			x=(trw(66)*t*60)/(t*T*T+1)
+			y=t*(trw(66)*t*60)/(t*T*T+1)
+			if t_ : line x+319+dxdy,239-y+dydx : else : line y+319+dxdy,239-x+dydx
+		loop
+	loop
+}
+if trx=59 {
+	t=trw(78)*40*tx
+	buffer 4,2*t,2*t
+	circle 0,0,2*t,2*t,0
+	buffer 5,t,t
+	gcopy 4,0,0.134*t,0.5*t,2*t-0.134*t
+	pos t/2-1,0
+	gcopy 4,1.5*t,0.134*t,0.5*t,0.866*t
+	pos -t/2,0.866*t
+	gcopy 4,0,1.866*t,1.5*t,2*t
+	gsel 6
+	pos 320+dxdy-t/2,239-t*3/5+dydx
+	color 255,255,255
+	gmode 4,,,256
+	gcopy 5,0,0,t,t
+	color sr,sg,sb
+	gmode 0
+	goto*endoff
+}
+if trx=60 {
+	t=8000
+	x_=dxdy+319
+	y_=239+dydx
+	if in(6)=0 {
+		gsel 0
+		pos mato,0
+		gcopy 6,tx*640-(ginfo_winx-mato)/2+ginfo_vxm,tx*480-ginfo_winy/2+ginfo_vym,ginfo_winx-mato+1,ginfo_winy+1
+		repeat
+			title"ï`âÊì_ÇëIë        X="+(0.05*(mousex-(ginfo_winx+mato)/2+ginfo_vxm)/tx)+"Y="+(-0.05*(mousey-ginfo_winy/2+ginfo_vym)/tx)
+			stick key,512
+			if key=128 : t=0 : break
+			if key=256 : break
+			await 8
+		loop
+		x_=mousex+tx*640-(ginfo_winx+mato)/2+ginfo_vxm
+		y_=mousey+tx*480-ginfo_winy/2+ginfo_vym
+		gsel 6
+	}
+	pos x_,y_
+	repeat t
+		t_=1.0+cnt
+		if in(7)=0 : f=sin(sqrt(t_))
+		if in(7)=1 : f=logf(t_)*logf(t_)*logf(t_)*logf(t_)
+		if in(7)=2 : f=pow(t_,1.5)
+		if in(7)=3 : f=pow(t_,3)/1013
+		if in(7)=4 : f=pow(t_,3)/1002
+		if in(7)=5 : f=t_*t_*0.141593
+		if in(7)=6 : f=t_*t_*0.234372
+		if in(7)=7 : f=t_*t_*0.0666818
+		if in(7)=8 : f=t_*t_*-0.250851
+		if in(7)=9 : f=t_*t_*-0.00339372
+		if in(7)=10 : f=t_*t_*-0.334613
+		if in(7)=11 : f=t_*t_*-0.252869
+		if in(7)=12 : f=t_*t_*-0.0113469
+		if in(7)=13 : f=t_*t_*-0.0324963
+		if in(7)=14 : f=t_*t_*-0.306828
+		if in(7)=15 : f=t_*t_*-0.185212
+		if in(7)=16 : f=t_*t_*-0.349805
+		if in(7)=17 : f=t_*t_/320
+		if in(7)=18 : f=t_*t_/321
+		if in(7)=19 : f=t_*t_/322
+		if in(7)=20 : f=t_*t_/323
+		x=cos(pi*2*f)*trw(79)*tx
+		y=-sin(pi*2*f)*trw(79)*tx
+		line x+x_,y+y_
+		x_=x+x_
+		y_=y+y_
+	loop
+	goto*endoff
+}
+if trx=88 {
+	if in.13=10 : redraw 0
+	pos dxdy+319,239+dydx
+	repeat 8000,-4000
+		t=0.01*cnt
+		if sin(t)=0 : continue
+		if in.13=0 : if in.14 : x_=1.0/sin(trw.109*t) : else : x_=sin(trw.109*t)
+		if in.13=1 : x_=1.0/sin(t)
+		if in.13=2 : x_=1.0/sin(t*2)
+		if in.13=3 : x_=1.0/sin(t*2.2)
+		if in.13=4 : x_=sin(t)
+		if in.13=5 : x_=sin(t*0.9)
+		if in.13=6 : x_=sin(t*1.5)
+		if in.13=7 : x_=sin(t*1.725)
+		if in.13=8 : x_=sin(t*2)
+		if in.13=9 : x_=sin(t*6)
+		if in.13=10 : x_=sin(t*99)
+		if x_=0 : continue
+		t_=t*40/PI/x_
+		y=-cos(t)*t_*tx+239+dydx
+		x=sin(t)*t_*tx+319+dxdy
+		if cnt!-4000 {
+			if y<1080&y>-120 {
+				if x<1400&x>-120 : line x,y
+			}
+		}
+		pos x,y
+	loop
+	goto*endoff
+}
+if trx=41 {
+	repeat 2
+		f_=cnt
+		pos 319+dxdy,239+dydx
+		repeat
+			t=0.05*cnt/tx
+			if trw(35)=t : break
+			y=-sqrt(T*T*T/(trw(35)-T))
+			if f_=1 : y=-y
+			line cnt+dxdy+319,y*20*tx+239+dydx
+		loop
+	loop
+	goto*endoff
+}
+if trx=48 {
+	pos 319+dxdy,239+dydx
+	repeat 1400.0/trw(62)/tx
+		t=0.1*cnt
+		x+=cos(t)*t*20*trw(62)*tx+319+dxdy
+		y=-sin(t)*t*20*trw(62)*tx+239+dydx
+		line x,y
+		x=0.0
+		y=0.0
+	loop
+	goto*endoff
+}
+if trx=52 {
+	pos 10000,239+dydx
+	repeat tx*1400*trw(67),1
+		t=0.1*cnt
+		x=cos(t)*trw(67)*20/sqrt(t)*tx+319+dxdy
+		y=-sin(t)*trw(67)*20/sqrt(t)*tx+239+dydx
+		line x,y
+	loop
+	goto*endoff
+}
+if trx=53 {
+	pos dxdy+319,239+dydx
+	repeat int(20000.0/trw(68)/trw(68)/tx/tx)
+		t=0.1*cnt
+		x+=cos(t)*trw(68)*20*tx*sqrt(t)+319+dxdy
+		y-=sin(t)*trw(68)*20*tx*sqrt(t)-239-dydx
+		line x,y
+		x=0
+		y=0
+	loop
+	goto*endoff
+}
+if trx=54 {
+	pos dxdy+319,239+dydx
+	repeat 6000
+		t=0.1*cnt
+		x=cos(t)*20*trw(70)*tx*expf(t*cot(trw(69)))
+		y=-sin(t)*20*trw(70)*tx*expf(t*cot(trw(69)))
+		if x<tx*1280+300&x>-300&y<tx*960+300&y>-300 : line x+319+dxdy,y+239+dydx
+	loop
+	goto*endoff
+}
+if trx=55 {
+	pos dxdy+319,239+dydx
+	repeat 4000*(trw(72)+tx)
+		t=0.001*cnt
+		t_=sin(t*trw(72))*trw(71)*20
+		y=-cos(t)*t_*tx+239+dydx
+		x=sin(t)*t_*tx+319+dxdy
+		line x,y
+	loop
+	goto*endoff
+}
+if trx=85 {
+	pos 0,239+dydx
+	repeat 314
+		t=0.01*cnt
+		if sin(t)=0 : continue
+		t_=t/sin(t)
+		y=-sin(t)*t_*20*tx+239
+		x=cos(t)*t_*20*tx
+		line x+319+dxdy,y+dydx
+	loop
+	goto*endoff
+}
+if trx=86 {
+	repeat 471
+		if 157<cnt&cnt<314 : continue
+		t=0.01*cnt
+		if sin(t)=0 : continue
+		t_=trw.108/tan(t)*20
+		y=-sin(t)*t_*tx+239+dydx
+		x=cos(t)*t_*tx+319+dxdy
+		if cnt=315 : pos x,y : continue
+		if abs(ginfo(23)-y)>9 : pos x,y : continue
+		line x,y
+	loop
+	goto*endoff
+}
+if trx=3|trx=111|trx=112|trx=113|trx=114|trx=92|trx=115|trx=116{
+	pos,over*tx
+	if trx=111 : pos -10,over*2
+	if trx=114 : pos dxdy+319,PI*trw.131*10*tx+239+dydx
+	if trx=115 : pos dxdy+319+tx*20,239+dydx
+	if trx=116 : pos dxdy+319-tx*20,PI*trw.133*10*tx+239+dydx
+	FOR t,-int(tx*640)+310,int(tx*640)+330,1
+		f_=f
+		i_=i
+		t_=(0.05*(t-239)-0.001)/tx
+		if trx=3 {
+			f=(pow1(t_,trw.224)-trw(8))/trw(7)
+			if f>0&t<239 : _continue
+		}
+		if trx=111{
+			t_/=trw(128)
+			if t_=0 {
+				pos dxdy-1,t+dydx
+				if trw(128)>0 : pos dxdy+650
+			}
+			if sinh(t_,1)=0 : _continue
+			f=coth(t_)
+		}
+		if trx=113 {
+			if t_=0 {
+				pos dxdy-1,t+dydx
+				if trw(130)>0 : pos dxdy+650
+				_continue
+			}
+			f=cosech(t_/trw(130))
+		}
+		if trx=114&PI*trw.131/2<absf(t_) : _continue
+		if trx=115&(trw.132*PI<=t_|t_<=0) : _continue
+		if trx=116&PI*trw.133/2<absf(t_) : _continue
+		if trx=92 : F=expf(t_*trw.110)*t_*trw.110
+		if trx=112 : f=seth(t_/trw(129))
+		if trx=114 : if cos(t_/trw.131)=0 : _continue : else : F=cot(t_/trw.131)
+		if trx=115 : if cos(t_/trw.132)=0 : _continue : else : F=sec(t_/trw.132)
+		if trx=116 : if sin(t_/trw.133)=0 : _continue : else : F=cosec(t_/trw.133)
+		if fm=1&index(f)!0&index(f_)!0 {
+			if absf(f-f_)<5.0*tx {
+				fm=0
+				if f>0 : pos over*tx*2,478-t+dydx
+				if f<0 : pos -10,478-t+dydx
+			}
+		}
+		
+		if fm=0 {
+			if f*tx>72.0|f*tx<-72.0 : pos f*20*tx+dxdy+319,478-t+dydx : else : line f*20*tx+dxdy+319,478-t+dydx;ï`âÊ
+		
+			if index(f)!0&index(f_)!0{
+				if (absf(f-f_)>5.0*tx) {
+					if (f-f_)>0 : line over*tx*2,478-t+dydx
+					if (f-f_)<0 : line -10,478-t+dydx
+					fm=1
+				}
+			}
+		}
+	NEXT
+}else{
+if trx=206{
+	;
+	ddim COM206,int(tx*1280)+20
+	rat=tx
+	repeat rat*1280
+		COM206.cnt=Ai(0.05*(cnt-rat*640-9)/rat)
+	loop
+	bsave"DAT",COM206
+	;
+	ddim COM206,int(tx*1280)+20
+	bload"DAT",COM206
+	delete"DAT"
+}
+if (t_=0)&(t=0)&(x=0)&(x_=0)&(f_=0)&(f=0) {
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if trx=11&(trw(16)=0|trw(16)=1) : goto*endoff
+if trx=75|trx=148|trx=219|trx=220 : y_=sqrt(5) : x_=y_+1
+if trx=80 : if trw.99=0 : x=0 : else : x=1.0/trw.99
+if trx=81 : x=1.0/in.12
+if trx=82 : if trw.107 : x=pow(trw.107,2) : else : x=1
+if trx=66&trw(82)<=0 : dialog"ïWèÄïŒç∑ílÉ–(É–>0)",1,kj : goto*endoff
+if trx=87&trw(93)<=0 : dialog"íËêîa(a>0)",1,kj : goto*endoff
+if trx=119&trw(138)<=0 : dialog"ïWèÄïŒç∑ílÉ–(É–>0)",1,kj : goto*endoff
+if trx=122&trw(141)<=0 : dialog"éüå≥p(p>0)",1,kj : goto*endoff
+if trx=122&trw(142)<=0 : dialog"éüå≥q(q>0)",1,kj : goto*endoff
+if trx=35 : if trw.40=0 : dialog"íËêîa(aÅÇ0)",1,kj : goto*endoff
+if trx=76&trw(89)=0 : dialog"íËêîÉ–(É–ÅÇ0)",1,kj : goto*endoff
+if trx=62&trw(81)=0 : dialog"íËêîÉ–(É–ÅÇ0)",1,kj : goto*endoff
+if trx=81&trw.105=0 : dialog"bÅÇ0",1,kj : goto*endoff
+if trx=81&trw.104=0 : dialog"aÅÇ0",1,kj : goto*endoff
+if trx=124&trw(143)<=0 : dialog"ïWèÄïŒç∑ílÉ–(É–>0)",1,kj : goto*endoff
+if trx=126&trw(146)<=trw(145) : dialog"ì_(É¿>Éø)",1,kj : goto*endoff
+if trx=133&trw.151=0 : dialog"íËêîT(TÅÇ0)",1,kj : goto*endoff
+if trx=145&trw.153=0 : dialog"íËêîn(nÅÇ0)",1,kj : goto*endoff
+pos -1,239+dydx
+if trx=28 : pos 319+dxdy-tx*20,239+PI*10*trw(55)*tx+dydx
+if trx=29 : pos 319+dxdy-tx*20,239-PI*20*trw(56)*tx+dydx
+if trx=33 : pos 319+dxdy-tx*20,over*tx*sgn(trw.60)
+if trx=57 : pos dxdy+319,239-tx*20+dydx
+if trx=216 : pos dxdy+319,239-tx*20+dydx
+if trx=219 : pos dxdy+319,239+dydx
+if trx=220 : pos dxdy+319,239-tx*40+dydx
+if trx=82|trx=125 : pos dxdy+319
+if trx=81&in.12\2=0 : pos 319+dxdy-trw.104*20*tx
+if trx=84 : pos dxdy+319-20*tx
+if trx=87 : pos dxdy+319,-10
+if trx=121|trx=122 : pos dxdy+320,239+dydx
+if in.1=1 : pos,-abs(ginfo_cy-239-dydx)+239+dydx
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+for t,-int(tx*disx/2)+310,int(tx*disx/2)+330,1
+tt=0.05*(t-319)-0.001
+f_=f
+i_=i
+fd_=fd
+id_=id
+t_=tt/tx
+if trx=1{
+	f=-pow1(t_-trw(3),trw.222)*trw(1)-trw(2)
+}
+if trx=2 {
+	if t_-trw(6)=0 : pos t+dxdy,-1 : _continue
+	F=-pow1(t_-trw(6),-trw.223)*trw(4)-trw(5)
+}
+	if in(1)=1 : f=-absf(f)
+	if in(1)=2 : f=floor(f)
+	if in(1)=3 : f=-floor(-f)
+	if in(1)=4 : f=-fmod(-f,1)
+	if in(1)=5 : f=-round(-f)
+if trx=16&t_=0{
+	pos t+dxdy,over*tx
+	if trw(20)>0 : pos,-1
+	_continue
+}
+if trx=18&t_=0 {
+	pos t+dxdy,over*tx
+	if trw(18)>0 : pos,-1
+	_continue
+}
+if trx=37 {
+	x_=0
+	f=0.0
+	x=1.0
+	repeat in(4),1
+		x=2.0*cnt-1
+		if x=0 : continue
+		x_+
+		f_=cos(x*t_)*trw(43)/x
+		if x_\2=0 : f+=f_ : else : f-=f_
+	loop
+}
+if trx=38 {
+	f=0.0
+	repeat in(5),1
+		f-=sin(t_*cnt)*trw(42)/cnt
+	loop
+}
+if trx=214 {
+	f=0.0
+	repeat in.20,1
+		f-=sin(PI*cnt/2)*sin(t_*cnt)/cnt/cnt
+	loop
+	f=f*8/PI/PI
+}
+if trx=57 {
+	if t_<-0.001*tx+1|t_+0.001*tx!int(t_+0.001*tx) : _continue
+	f=-kzfunc(t_+0.001*tx) : f_=f
+}
+if trx=216 {
+	if t_<-0.001*tx+1|t_+0.001*tx!int(t_+0.001*tx) : _continue
+	f=-nfunc(t_+0.001*tx) : f_=f
+}
+if trx=219 {
+	if t_<-0.001*tx+1|t_+0.001*tx!int(t_+0.001*tx) : _continue
+	f=expf((t_+0.001*tx)*logf(x_/2)) : f_=expf((t_+0.001*tx)*logf(2.0/x_))*cos(PI*(t_+0.001*tx)) : F=-(f-f_)/y_ : f_=f
+}
+if trx=220 {
+	if t_<-0.001*tx+1|t_+0.001*tx!int(t_+0.001*tx) : _continue
+	F=-expf((t_+0.001*tx)*logf(2.0/x_))*cos(PI*(t_+0.001*tx))-expf(t_*logf(x_/2)) : f_=f
+}
+if trx=81{
+	if in.12\2=1 {
+		F=-pow(1.0-pow1(t_/trw.104,in.12),1.0/in.12)*trw.105
+	}else{
+		if trw.104<absf(t_) : _continue
+		F=-pow(1.0-pow(absf(t_/trw.104),in.12),x)*trw.105
+		if f*20*tx>over*tx|f*20*tx<-over*tx|index(f)=0 : _continue
+	}
+}
+if trx=103 {
+	F=-gd2(t_)*trw.121
+	if index(f)=0{
+		if x : pos t+dxdy,over*tx : else : LINE t+dxdy,-10 : x++
+		_continue
+	}
+}
+if trx=58 {
+F=-sqrt(-t_*t_-trw.75*trw.75+sqrt(trw.75*trw.75*t_*t_*4+trw.77*trw.77*trw.77*trw.77))
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=39 {
+F=-sqrt(-t_*t_-trw.44*trw.44+sqrt(trw.44*trw.44*t_*t_*4+trw.44*trw.44*trw.44*trw.44))
+if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=40 {
+	if t_!0 : f=-sqrt(-(t_*t_-trw.45*trw.45)*(t_+1)*(t_+1)/t_/t_) : else : f=INF
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t : else : if absf(t_)>0.1 : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=42 {
+	if t_!trw.47 : g=sqrt(trw.47*trw.47*4-t_*t_*4)/(t_-trw.47)/2 : else : g=INF
+	f=-(trw.47*g*g*g-trw.47*g)/(g*g+1)
+	if index(f)=0 {
+		pos dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=44 {
+	f=-Sqrt(-t_*t_+t_*trw.46*2 + sqrt(trw.46*trw.46*t_*t_*4-t_*t_*t_*trw.46*4))
+	if index(f)=0 {
+		if index(f_)=0 : if trw.46>0 : pos dxdy+t,239+dydx : else : pos dxdy+t,239+dydx-absf(trw.46)*20*tx
+		if index(f_)=1 : if t_>0&trw.46>0 : line dxdy+t,239+dydx-absf(trw.46)*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=45 {
+	f=-sqrt(-t_*t_+t_*trw.50*2+trw.51*trw.51/2 + Sqrt(trw.51*trw.51*trw.51*trw.51+trw.50*trw.51*trw.51*t_*8)/2)
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t,239+dydx-sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx
+		if index(f_)=1 : if t_>0&trw.50<0 : line dxdy+t,239+dydx-sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=154 {
+F=-sqrt(-trw.162/2+sqrt(trw.162*trw.162-t_*t_*4*trw.163+t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if -trw.162<trw.163&trw.162<0&absf(t_)<sqrt(trw.163){
+				line dxdy+t,-sqrt(-trw.162*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+if trx=156 {
+F=-(t_*t_*trw.76*4-trw.76*trw.76*4 + sqrt(trw.76*trw.76*trw.76*trw.76+trw.76*trw.76*t_*t_*t_*t_-trw.76*trw.76*trw.76*t_*t_*2-t_*t_*t_*t_*t_*t_-trw.76*trw.76*t_*t_+trw.76*t_*t_*t_*t_*2)*2)
+if trw.76*trw.76*3=t_*t_ : f=INF : else : f/=-trw.76*trw.76*6-t_*t_*2
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t,-(1.0-sgn(trw.76)*absf(t_))*10*tx+239+dydx : else : line dxdy+t,-(1.0-sgn(trw.76)*absf(t_))*10*tx+239+dydx
+		_continue
+	}
+}
+if trx=157 {
+F=-sqrt(trw.164/2 + sqrt(trw.164*trw.164+t_*t_*4*trw.165-t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if trw.164>0&(absf(t_)>sqrt(trw.165)|(trw.165<0)){
+				line dxdy+t,-sqrt(trw.164*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+if trx=11 {
+	F=logf(absf(t_)) : if t_<0 : x_=PI : else : x_=0.0
+	F=logf(absf(trw.16)) : if trw.16<0 : y_=PI : else : y_=0.0
+	F=-(logf(absf(t_))*logf(absf(trw.16))+x_*y_)/(logf(absf(trw.16))*logf(absf(trw.16))-y_*y_)
+	I=(logf(absf(trw.16))*x_-logf(absf(t_))*y_)/(logf(absf(trw.16))*logf(absf(trw.16))-y_*y_)
+}
+if trx=118{
+	x=pow1(trw.136,-trw.137)
+	x_=i
+	y=pow1(t_,trw.137-1)
+	y_=i
+	F=-expf(-t_/trw.136)/gfunc(trw.137)*(x*y-x_*y_)
+	I=expf(-t_/trw.136)/gfunc(trw.137)*(x_*y-x*y_)
+	if t_<0 : F=0.0 : I=0.0
+}
+if trx=222{
+	x_=bsfunc(trw.222,t_)
+	x_=i
+	y_=byfunc(trw.222,t_)
+	f=i-bsfunc(trw.222,t_)
+	i=y_+x_
+}
+if trx=223{
+	x_=bsfunc(trw.223,t_)
+	x_=i
+	y_=byfunc(trw.223,t_)
+	f=-i-bsfunc(trw.223,t_)
+	i=-y_+x_
+}
+if trx=4 : F=-sin(t_)*trw(9)
+if trx=5 : F=-cos(t_)*trw(10)
+if trx=6 : F=-tan(t_)*trw(11)
+if trx=13 : if sin(t_)!0 : F=-cot(t_)*trw(32)
+if trx=14 : if cos(t_)!0 : F=-sec(t_)*trw(33)
+if trx=15 : if sin(t_)!0 : F=-cosec(t_)*trw(34)
+if trx=7 : F=-pow1(trw(12),t_)
+if trx=8 : f=-sinh(t_,trw(13))
+if trx=9 : f=-cosh(t_,trw(14))
+if trx=10 : f=-tanh(t_)*trw(15)
+if trx=16 : if sinh(t_,1)!0 : f=-coth(t_)*trw(20)
+if trx=17 : f=-seth(t_)*trw(17)
+if trx=18 : f=-cosech(t_)*trw(18)
+if trx=28 : F=-arcsin(t_)*trw(55) : if t_>1|t_<-1|ginfo_cy<239-PI*10*trw(55)*tx : _continue
+if trx=29 : F=-arccos(t_)*trw(56) : if t_>1|t_<-1 : _continue
+if trx=30 : F=-arctan(t_)*trw(57)
+if trx=31 : F=-arcsinh(t_)*trw(58)
+if trx=32 : if t_<1 : pos t+dxdy,239+dydx : _continue : else : F=-arccosh(t_)*trw(59)
+if trx=33 : if absf(t_-0.001*tx)<1 : F=-arctanh(t_-0.001*tx)*trw(60) : else : _continue
+if trx=35 : f=-trw(40)*cosh(t_/trw(40),1)
+if trx=43 : F=-trw(48)/(pow1(t_/trw(48),2)+1)
+if trx=56 : F=sqrt(t_*t_*t_+trw(73)*t_+trw(74)) : if index(f)=0 : pos dxdy+t,239+dydx : _continue
+if trx=62 : F=-dfunc(t_)
+if trx=63 : F=-zfunc(t_)
+if trx=64 : F=-hfunc(t_)
+if trx=66 : F=-kafunc(t_,trw(82),trw(83))
+if trx=67 : F=-kafunc(t_,1,0)
+if trx=61 : F=-gfunc(t_)*trw(80)
+if trx=73 : if gfunc(t_)=0 : _continue : else : F=-trw(87)/gfunc(t_)
+if trx=69 : F=-logf(absf(t_))/2.302585 : if t_<0 : I=PI/2.302585 : else : I=0.0
+if trx=70 : F=-logf(absf(t_)) : if t_<0 : I=PI : else : I=0.0
+if trx=71 : f=-bsfunc(trw(85),t_) : if trw.85=int(trw.85) : I=0.0
+if trx=72 : f=-byfunc(trw(86),t_)
+if trx=74 : F=-trw(88)*logf(absf(gfunc(t_))) : if gfunc(t_)<0 : I=PI : else : I=0.0
+if trx=75 : f=expf(t_*logf(x_/2)) : f_=expf(t_*logf(2.0/x_))*cos(PI*t_) : F=-(f-f_)/y_
+if trx=76 : f=-0.5*(erfunc((t_-trw.90)/(trw.89*sqrt(2)))+1)
+if trx=87 : if trw(93)>=t_&t_>0 : f=-sqrt((trw(93)-t_)*trw(93)*trw(93))/t_ : else : _continue
+if trx=78 : f=-trw(92)*erfunc(t_)
+if trx=79 : F=-sgn(t_)
+if trx=68 : F=-beta(t_,trw(84)) : if t_<=0 : pos dxdy+t,-10 : _continue
+if trx=65 : F=-pow(t_*t_*trw(97),1.0/3) : if t_=0 : line dxdy+319,239+dydx : _continue
+if trx=80 : F=-pow(pow(absf(trw.101-t_),trw.100)*pow(absf(t_),trw.98)*trw.102,x) : if trw.101<t_ : _continue : else : if index(f)=0&abs(f_)<36 : line dxdy+t,239+dydx : _continue
+if trx=82 : if t_>0&trw.106>=t_ : f=-sqrt(absf(pow(absf(t_),3)*(trw.106-t_)/x)) : else : _continue
+if trx=83 : if t_=-1|t_=0 : _continue : else : F=-trw.103/(t_+1.0/t_)
+if trx=84 : if t_>=-1 : f=-sqrt(absf(t_*t_*t_+t_*t_)) : else : _continue
+if trx=89 : F=-1.0/(expf(-t_)+1)
+if trx=90 : F=-xfunc(t_) : if t_=0 : f=-1.0 : I=0.0
+if trx=91 : F=-xxfunc(t_)
+if trx=93 : F=-varsin(t_)*trw.111
+if trx=94 : F=-covarsin(t_)*trw.112
+if trx=95 : F=-varcos(t_)*trw.113
+if trx=96 : F=-vartan(t_)*trw.114
+if trx=97 : F=-varcot(t_)*trw.115
+if trx=98 : F=-varsec(t_)*trw.116
+if trx=99 : F=-varcosec(t_)*trw.117
+if trx=100 : F=-hav(t_)*trw.118
+if trx=110 : F=-haver(t_)*trw.127
+if trx=101 : F=-exsec(t_)*trw.119
+if trx=102 : F=-gd1(t_)*trw.120
+if trx=104 : F=-excosec(t_)*trw.122
+if trx=105 : F=-exsin(t_)*trw.123
+if trx=106 : F=-excos(t_)*trw.124
+if trx=107 : F=-extan(t_)*trw.125
+if trx=108 : F=-excot(t_)*trw.126
+if trx=109 : F=-expf(t_)
+if trx=117 : if t_<0 : F=0.0 : else : F=-kbfunc(t_,trw.134,trw.135)
+if trx=119 : if t_<0 : F=0.0 : else : F=-expf((trw.139-t_)/trw.138)/trw.138
+if trx=120 : F=-expf(-absf(t_)/trw.140)/trw.140/2
+if trx=121 : if t_>0 : F=-expf(-0.5*t_)*pow(t_,0.5*in.15-1)*pow(2,-0.5*in.15)/gfunc(0.5*in.15) : else : pos dxdy+t,dydx+239-(expf(-0.00005)*pow(0.0001,0.5*in.15-1)*pow(2,-0.5*in.15)/gfunc(0.5*in.15))*tx*20 : _continue
+if trx=122 : if t_>0&t_<1&gfunc(trw.141)*gfunc(trw.142)!0 : F=-pow(t_,trw.141-1)*pow(1.0-t_,trw.142-1)/(gfunc(trw.141)*gfunc(trw.142))*gfunc(trw.141+trw.142) : else : _continue
+if trx=123 : F=-pow(t_*t_/in.16+1,-0.5*(in.16+1))/(gfunc(0.5*in.16)*gfunc(0.5))*gfunc(0.5*in.16+0.5)/sqrt(in.16)
+if trx=124 : F=-1.0/((t_-trw.144)*(t_-trw.144)/(trw.143*trw.143)+1)/PI/trw.143
+if trx=126 : if trw.145<t_&trw.146>t_ : F=-1.0 : else : F=0.0
+if trx=125 : if t_>0 : F=-trw.147*pow(Pi*2,-0.5)*pow(t_,-1.5)*expf(-trw.147*trw.147*10/(t-319)) : else : _continue
+if trx=127 : if t_>0&t_<trw.148 : f=-1.0 : else : f=0.0
+if trx=128 : if t_>0&t_<1 : f=-(0.5-0.5*cos(Pi*2*t_)) : else : f=0.0
+if trx=129 : if t_>0&t_<1 : f=-(0.54-0.46*cos(Pi*2*t_)) : else : f=0.0
+if trx=130 : if absf(t_)<trw.149 : f=-expf(-t_*t_/trw.150/trw.150) : else : f=0.0
+if trx=131 : if t_>0&t_<1 : f=-(0.42-0.5*cos(Pi*2*t_)+0.08*cos(Pi*4*t_)) : else : f=0.0
+if trx=132 : if t_>0&t_<1 : f=-(1.0-2.0*absf(t_-0.5)) : else : f=0.0
+if trx=133 : if t_<0 : f=-expf(t_/trw.151) : else : f=0.0
+if trx=134 : if t_>0&t_<1 : f=-(trw.152-(1.0-trw.152)*cos(Pi*2*t_)) : else : f=0.0
+if trx=135 : if t_>0&t_<1 : f=-(0.62-0.48*absf(t_-0.5)-0.38*cos(Pi*2*t_)) : else : f=0.0
+if trx=136 : if t_>0&t_<1 : f=-(0.355768-0.487396*cos(Pi*2*t_)+0.144232*cos(Pi*4*t_)-0.012604*cos(Pi*6*t_)) : else : f=0.0
+if trx=137 : if t_>0&t_<1 : f=-(0.35875-0.48829*cos(Pi*2*t_)+0.14128*cos(Pi*4*t_)-0.01168*cos(Pi*6*t_)) : else : f=0.0
+if trx=138 : if t_>0&t_<1 : f=-(0.3635819-0.4891775*cos(Pi*2*t_)+0.1365995*cos(Pi*4*t_)-0.0106411*cos(Pi*6*t_)) : else : f=0.0
+if trx=139 : if t_>0&t_<1 : f=-(1.0-1.93*cos(Pi*2*t_)+1.29*cos(Pi*4*t_)-0.388*cos(Pi*6*t_)+0.032*cos(Pi*8*t_)) : else : f=0.0
+if trx=140 : if absf(t_)<1 : f=-(1.0-1.5*t_*t_+0.75*absf(t_*t_*t_)) : else : if absf(t_)<2 : f=-0.25*(-absf(t_)+2)*(-absf(t_)+2)*(-absf(t_)+2) : else : f=0.0
+if trx=141 : if t_>0&t_<1 : f=-(0.625-0.5*cos(Pi*2*t_)-0.125*cos(Pi*4*t_)) : else : f=0.0
+if trx=142 : if t_>0&t_<1 : f=-(t_*4*(-t_+1)) : else : f=0.0
+if trx=143 : if t_>0&t_<1 : f=-(sin(Pi*t_)) : else : f=0.0
+if trx=144 : if t_>0&t_<1 : f=-(sin(Pi/2*sin(Pi*t_)*sin(Pi*t_))) : else : f=0.0
+if trx=145 : if absf(t_)<trw.153 : f=-(sinc(t_)*sinc(t_/trw.153)) : else : f=0.0
+if trx=146 : F=-sinc(t_)*trw.154
+if trx=147 : F=-hsinc(t_)*trw.155
+if trx=148 : F=-expf(t_*logf(2.0/x_))*cos(PI*t_)-expf(t_*logf(x_/2))
+if trx=149 : F=-xxxfunc(t_)
+if trx=150 : F=-xxxxfunc(t_)
+if trx=151 : F=-kummerf(trw.156,trw.157,t_) : if t_=0 : f=INF
+if trx=152 : F=-mfunc(trw.158,trw.159,t_) : if t_=0 : f=INF
+if trx=153 : F=-wfunc(trw.160,trw.161+0.00000001,t_) : if t_=0 : f=INF
+if trx=158 : F=-psifunc(t_)*trw.166
+if trx=159 : F=-polfunc(in.17,t_)*trw.167
+if trx=160 : F=-gfunc(t_+trw.168)/gfunc(t_) : if index(gfunc(t_))=0 : _continue
+if trx=161 : F=-polfunc(1,t_)*trw.169
+if trx=162 : F=-p_t(in.18,t_)*trw.170
+if trx=163 : f=-p_gamma(0.5*in.19,t_/2)/gfunc(0.5*in.19) : if t_<=0 : pos dxdy+t,-p_gamma(0.5*in.19,0.0001)/gfunc(0.5*in.19)*20+dydx+239 : _continue
+if trx=164 : F=-Si(t_)
+if trx=165 : F=-Ci(t_)
+if trx=166 : F=-Ei(t_,0)
+if trx=167 : F=-li1(t_)
+if trx=168 : F=-li2(t_)
+if trx=169 : F=-FresnelC(t_)
+if trx=170 : F=-FresnelS(t_)
+if trx=171 : F=-erfcfunc(t_)*trw.172
+if trx=172 : F=-q_gamma(trw.173,t_)*trw.174 : if t_<=0 : pos dxdy+t,dydx+239 : _continue
+if trx=173 : F=-p_gamma(trw.175,t_)*trw.176 : if t_<=0 : pos dxdy+t,-trw.176*20*tx+dydx+239 : _continue
+if trx=174 : F=-Si2(t_)
+if trx=175 : F=-Chi(t_)
+if trx=176 : F=-Shi(t_)
+if trx=177 : F=-fgfunc(t_,trw.177)*trw.178 : if t_<=0 : pos dxdy+t,dydx+239 : _continue
+if trx=178 : if t_<0 : pos dxdy+t,-p_beta(trw.180,0.0001,trw.179)*tx*20+dydx+239 : _continue : else : F=-p_beta(trw.180,t_,trw.179)
+if trx=179 : F=-beta(t_,trw.182)/p_beta(trw.181,t_,trw.182) : if t_<=0 : pos dxdy+t,-10 : _continue
+if trx=180 : F=-Ai(t_)
+if trx=181 : F=-Gauss(trw.183,trw.184,trw.185,t_) : if t_=0 : f=INF
+if trx=182 : F=-Hyper(trw.186,t_) : if t_=0 : f=INF
+if trx=183 : F=-Hyper(trw.187,t_)/gfunc(trw.187) : if t_=0 : f=INF
+if trx=184 : F=-kummerf(trw.188,trw.189,t_)/gfunc(trw.189) : if t_=0 : f=INF
+if trx=185 : F=-Gauss(trw.190,trw.191,trw.192,t_)/gfunc(trw.192) : if t_=0 : f=INF
+if trx=186 : F=-bifunc(trw.193,t_)
+if trx=187 : F=-bkfunc(trw.194,t_)
+if trx=188 : F=-Bi(t_)
+if trx=189 : F=-StruveH(trw.195,t_)
+if trx=190 : F=-StruveL(trw.196,t_)
+if trx=191 : f=-bsfunc(trw.197+0.5,t_)*sqrt(PI/2/absf(t_)) : I*=sqrt(PI/2/absf(t_)) : if t_<0 : OI=I : I=-f : f=OI : if trw.197=int(trw.197) : I=0.0
+if trx=192 : f=-byfunc(trw.198+0.5,t_)*sqrt(PI/2/absf(t_)) : I*=sqrt(PI/2/absf(t_)) : if t_<0 : OI=I : I=-f : f=OI
+if trx=193 : F=-bifunc(trw.199+0.5,t_)*sqrt(PI/2/absf(t_)) : I*=sqrt(PI/2/absf(t_)) : if t_<0 : OI=I : I=-f : f=OI : if trw.199=int(trw.199) : I=0.0
+if trx=194 : F=-bkfunc(0.5+trw.200,t_)*sqrt(2.0/PI/absf(t_)) : I*=sqrt(2.0/PI/absf(t_)) : if t_<0 : OI=I : I=-f : f=OI : if trw.200=int(trw.200) : I=0.0
+if trx=195 : F=-elmeet(trw.201,t_)
+if trx=196 : if t_>=1 : _continue : else : f=-Gauss(-trw.202,trw.202+1,1,0.5-t_/2) : if t_<=-1 : pos dxdy+t,-Gauss(-trw.202,trw.202+1,1,0.95)*tx*20+dydx+239 : _continue
+if trx=197 : if t_>=1 : _continue : else : f=-Gauss(-trw.206,trw.206+1,-trw.203+1,0.5-t_/2)/gfunc(1.0-trw.203)*pow((t_+1)/(t_-1),trw.203/2) : if t_<=-1 : pos t+dxdy,Gauss(-trw.206,trw.206+1,-trw.203+1,0.95)/gfunc(1.0-trw.203)*pow(-1.0/10001,trw.203/2)*20*tx+239+dydx : _continue
+if trx=198 : if t_>=1 : _continue : else : f=-Gauss(-trw.204,trw.204,0.5,0.5-t_/2) : if t_<=-1 : pos t+dxdy,-Gauss(-trw.204,trw.204,0.5,0.95)*20*tx+239+dydx : _continue
+if trx=199 : if t_>=1 : _continue : else : f=-(trw.205+1)*Gauss(-trw.205,trw.205+2,1.5,0.5-t_/2) : if t_<=-1 : pos t+dxdy,-(trw.205+1)*Gauss(-trw.205,trw.205+2,1.5,0.95)*20*tx+239+dydx : _continue
+if trx=200 : if t_=0 : _continue : else : f=-kummerf(-trw.207,1,t_)
+if trx=201 : if t_=0 : _continue : else : f=-kummerf(-trw.209,trw.208+1,t_)*gfunc(trw.208+1+trw.209)/gfunc(trw.208+1)/gfunc(trw.209+1)
+if trx=202 : if t_<=0 : pos dxdy+t,dydx+239-(kummerf(-trw.210,1,0.0001)*expf(-0.00005)/gfunc(trw.210+1))*tx*20 : _continue : else : f=-kummerf(-trw.210,1,t_)*expf(-t_/2)/gfunc(trw.210+1)
+if trx=203 : if t_>=1 : _continue : else : f=-Gauss(-trw.211,trw.211+1,1,0.5-t_/2)*sqrt(trw.211+0.5) : if t_<=-1 : pos t+dxdy,-Gauss(-trw.211,trw.211+1,1,0.95)*sqrt(trw.211+0.5)*20*tx+239+dydx : _continue
+if trx=204 : if t_=0 : _continue : else : F=-expf(-t_*t_/2)/sqrt(pow1(2,trw.212)*sqrt(PI)*gfunc(trw.212+1))*elmeet(trw.212,t_)
+;if trx=205 : F=-Hyper2(trw.213,trw.214,t_); : if t_=0 : f=INF
+;Pochha
+if trx=206 : f=-COM206(t+int(tx*640)-310)
+if trx=207 : f=-ber(trw.215,t_)
+if trx=208 : f=-bei(trw.216,t_)
+if trx=209 : f=-her(trw.217,t_)
+if trx=210 : f=-hei(trw.218,t_)
+if trx=211 : f= hei(trw.219,t_)*PI/2
+if trx=212 : f=-her(trw.220,t_)*PI/2
+if trx=213 : f=-bhfunc(t_)
+if trx=215 : if trw.221=1 : f=-t_ : else : f=(pow1(trw.221,t_)-1)/(-trw.221+1)
+if trx=215&trw.221=0 : if t_>0 : f=-1.0 : else : f=0.0
+if trx=217 : f=-gfunc(t_+1)
+if trx=218 : f=-nfunc(t_)
+if trx=221 : f=-cos(t_) : I=sin(t_)
+
+fd=f-f_
+id=i-i_
+
+color sr,sg,sb
+if in.21=0 : COM_X.NEXCO=-i_ : else : COM_X.NEXCO=-id
+
+if i_!0.0 : color hsrr,hsgr,hsbr : fi=1
+
+if fm=1&index(f)!0&index(f_)!0 {
+	if trx=213{
+		if absf(f-f_)<2.5*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}else{
+		if absf(f-f_)<5.0*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}
+}
+
+if fm=0 {
+	if in.21=0{
+		if f*tx>72.0|f*tx<-72.0 : pos t+dxdy,f*20*tx+240+dydx : else : line t+dxdy,f*20*tx+240+dydx;ï`âÊ
+	}else{
+		if fd*tx>72.0|fd*tx<-72.0 : pos t+dxdy,fd*400*tx+240+dydx : else : line t+dxdy,fd*400*tx+240+dydx;î˜ï™ï`âÊ
+	}
+	
+	if trx!1&trx!75&trx!57&index(f)!0&index(f_)!0{
+		if (absf(fd)>2.5*tx)&trx=213 {
+			if fd<0 : line t+dxdy,-10
+			if fd>0 : line t+dxdy,over*tx
+			fm=1
+		}
+		if (absf(fd)>5.0*tx)&trx!37&trx!38 {
+			if fd<0 : line t+dxdy,-10
+			if fd>0 : line t+dxdy,over*tx
+			fm=1
+		}
+	}
+}
+
+if trx=103 : x=0
+NEXCO+
+next
+}
+NEXCO=0
+if trx=33 : line tx*20+319+dxdy,sgn(trw.60)*INF
+if trx=81&in.12\2=0 : line trw.104*20*tx+319+dxdy,239+dydx
+if trx=82 : line trw.106*20*tx+dxdy+319,239+dydx
+color hsri,hsgi,hsbi
+pos -1,239+dydx
+f=0.0
+f_=0.0
+if fi {
+	for t,-int(tx*disx/2)+310,int(tx*disx/2)+330,1
+	f_=f
+	f=COM_X.NEXCO
+	fd=f-f_
+		if fm=1&index(f)!0&index(f_)!0 {
+			if trx=213{
+				if absf(f-f_)<2.5*tx {
+					fm=0
+					if f<0 : pos t+dxdy-1,-10
+					if f>0 : pos t+dxdy-1,over*tx
+				}
+			}else{
+				if absf(f-f_)<5.0*tx {
+					fm=0
+					if f<0 : pos t+dxdy-1,-10
+					if f>0 : pos t+dxdy-1,over*tx
+				}
+			}
+		}
+		
+		if fm=0 {
+			if in.21=0{
+				if f*tx>72.0|f*tx<-72.0|f=0 : pos t+dxdy,f*20*tx+240+dydx : else : line t+dxdy,f*20*tx+240+dydx;ï`âÊ
+			}else{
+				if fd*tx>72.0|fd*tx<-72.0|f=0 : pos t+dxdy,fd*400*tx+240+dydx : else : line t+dxdy,fd*400*tx+240+dydx;î˜ï™ï`âÊ
+			}
+			
+			if trx!1&trx!75&trx!57&index(f)!0&index(f_)!0{
+				if (absf(fd)>2.5*tx)&trx=213 {
+					if fd<0 : line t+dxdy,-10
+					if fd>0 : line t+dxdy,over*tx
+					fm=1
+				}
+				if (absf(fd)>5.0*tx)&trx!37&trx!38 {
+					if fd<0 : line t+dxdy,-10
+					if fd>0 : line t+dxdy,over*tx
+					fm=1
+				}
+			}
+		}
+	NEXCO+
+	next
+	fi=0
+}
+NEXCO=0
+f=0.0
+i=0.0
+x=0.0
+y=0.0
+t=0.0
+f_=0.0
+i_=0.0
+x_=0.0
+y_=0.0
+t_=0.0
+pos -1,239+dydx
+if trx=56 : pos dxdy-1
+if trx=87 : pos 319+dxdy,over*tx
+if trx=80 : pos dxdy-1,over*tx : if trw.99=0 : x=0 : else : x=1.0/trw.99
+if trx=81 : x=1.0/in.12 : if in.12\2=1 : pos 640+dxdy,over*tx : else : pos 319+dxdy-trw.104*20*tx,239+dydx
+if trx=82 : pos 319+dxdy : x=trw.107*trw.107
+if trx=84 : pos dxdy+319-tx*20
+
+if trx=32|trx=56|trx=58|trx=87|trx=80|trx=81|trx=82|trx=84|trx=154|trx=39|trx=42|trx=40|trx=45|trx=44|trx=156|trx=157 {
+color sr,sg,sb
+for t,-int(tx*disx/2)+310,int(tx*disx/2)+330,1
+f_=f
+tt=0.05*(t-319)-0.001
+t_=tt/tx
+if trx=32 : if t_<1 : pos t+dxdy,239+dydx : else : F=arccosh(t_)*trw(59)
+if trx=56 : F=-sqrt(t_*t_*t_+trw(73)*t_+trw(74)) : if index(f)=0 : pos dxdy+t,239+dydx : _continue
+if trx=87 : if trw(93)>=t_&t_>0 : f=sqrt((trw(93)-t_)*trw(93)*trw(93))/t_ : else : _continue
+if trx=80 : F=pow(pow(absf(trw.101-t_),trw.100)*pow(absf(t_),trw.98)*trw.102,x) : if trw.101<t_ : _continue : else : if index(f)=0&abs(f_)<36 : line dxdy+t,239+dydx : _continue
+if trx=45 {
+	f=-sqrt(-t_*t_+t_*trw.50*2+trw.51*trw.51/2 - Sqrt(trw.51*trw.51*trw.51*trw.51+trw.50*trw.51*trw.51*t_*8)/2)
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t,239+dydx-sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx
+		if index(f_)=1 : if t_>0&trw.50<0 : line dxdy+t,239+dydx-sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=58 {
+F=sqrt(-t_*t_-trw.75*trw.75+sqrt(trw.75*trw.75*t_*t_*4+trw.77*trw.77*trw.77*trw.77))
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=39 {
+F=sqrt(-t_*t_-trw.44*trw.44+sqrt(trw.44*trw.44*t_*t_*4+trw.44*trw.44*trw.44*trw.44))
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=40 {
+	if t_!0 : f=sqrt(-(t_*t_-trw.45*trw.45)*(t_+1)*(t_+1)/t_/t_) : else : f=INF
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t : else : if absf(t_)>0.1 : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=42 {
+	if -absf(trw.47)>=t_{
+		if trw.47>0 : pos dxdy+t,239+dydx
+		if trw.47<0 : pos dxdy+t,-10
+		_continue
+	}
+	if t_!trw.47 : g=sqrt(trw.47*trw.47*4-t_*t_*4)/(t_-trw.47)/2 : else : g=INF
+	f=(trw.47*g*g*g-trw.47*g)/(g*g+1)
+}
+if trx=44 {
+	f=-Sqrt(-t_*t_+t_*trw.46*2 - sqrt(trw.46*trw.46*t_*t_*4-t_*t_*t_*trw.46*4))
+	if index(f)=1 {
+		if index(f_)=0 : pset
+	}
+	if index(f)=0 {
+		if index(f_)=0 : if trw.46>0 : pos dxdy+t,239+dydx : else : pos dxdy+t,239+dydx-absf(trw.46)*20*tx
+		if index(f_)=1 : if t_>0&trw.46>0 : line dxdy+t,239+dydx-absf(trw.46)*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=154 {
+F=sqrt(-trw.162/2+sqrt(trw.162*trw.162-t_*t_*4*trw.163+t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if -trw.162<trw.163&trw.162<0&absf(t_)<sqrt(trw.163){
+				line dxdy+t,sqrt(-trw.162*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+if trx=156 {
+F=-(t_*t_*trw.76*4-trw.76*trw.76*4 - sqrt(trw.76*trw.76*trw.76*trw.76+trw.76*trw.76*t_*t_*t_*t_-trw.76*trw.76*trw.76*t_*t_*2-t_*t_*t_*t_*t_*t_-trw.76*trw.76*t_*t_+trw.76*t_*t_*t_*t_*2)*2)
+if trw.76*trw.76*3=t_*t_ : f=INF : else : f/=-trw.76*trw.76*6-t_*t_*2
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t,-(1.0-sgn(trw.76)*absf(t_))*10*tx+239+dydx : else : line dxdy+t,-(1.0-sgn(trw.76)*absf(t_))*10*tx+239+dydx
+		_continue
+	}
+}
+if trx=157 {
+F=-sqrt(trw.164/2 - sqrt(trw.164*trw.164+t_*t_*4*trw.165-t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if trw.164>0&(absf(t_)>sqrt(trw.165)|(trw.165<0)){
+				line dxdy+t,-sqrt(trw.164*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+if trx=81{
+	if in.12\2=1 {
+		f=pow(1.0-pow1(t_/trw.105,in.12),1.0/in.12)*trw.104*20*tx
+		if f>721|f<-719|index(f)=0 : _continue
+		line dxdy+320+f,558-t+dydx
+		_continue
+	}else{
+		if trw.104<absf(t_) : _continue
+		F=pow(1.0-pow(absf(t_/trw.104),in.12),x)*trw.105
+		if f>36.0|f<-36.0|index(f)=0 : _continue
+	}
+}
+if trx=82 : if t_>0&trw.106>=t_ : f=sqrt(absf(pow(absf(t_),3)*(trw.106-t_)/x)) : else : _continue
+if trx=84 : if t_>=-1 : f=sqrt(absf(t_*t_*t_+t_*t_)) : else : _continue
+
+if fm=1&index(f)!0&index(f_)!0 {
+	if trx=213{
+		if absf(f-f_)<2.5*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}else{
+		if absf(f-f_)<5.0*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}
+}
+
+if fm=0 {
+	if f*tx>72.0|f*tx<-72.0 : pos t+dxdy,f*20*tx+240+dydx : else : line t+dxdy,f*20*tx+240+dydx;ï`âÊ
+
+	if trx!1&trx!75&trx!57&index(f)!0&index(f_)!0{
+		if (absf(f-f_)>2.5*tx)&trx=213 {
+			if (f-f_)<0 : line t+dxdy,-10
+			if (f-f_)>0 : line t+dxdy,over*tx
+			fm=1
+		}
+		if (absf(f-f_)>5.0*tx)&trx!37&trx!38 {
+			if (f-f_)<0 : line t+dxdy,-10
+			if (f-f_)>0 : line t+dxdy,over*tx
+			fm=1
+		}
+	}
+}
+next
+if trx=81&in.12\2=0 : line trw.104*20*tx+dxdy+319,239+dydx
+if trx=82 : line trw.106*20*tx+dxdy+319,239+dydx
+}
+
+f=0.0
+i=0.0
+x=0.0
+y=0.0
+t=0.0
+f_=0.0
+i_=0.0
+x_=0.0
+y_=0.0
+t_=0.0
+pos -1,239+dydx
+
+if trx=45|trx=44|trx=154|trx=157 {
+for t,-int(tx*disx/2)+310,int(tx*disx/2)+330,1
+f_=f
+tt=0.05*(t-319)-0.001
+t_=tt/tx
+if trx=44 {
+	f=Sqrt(-t_*t_+t_*trw.46*2 + sqrt(trw.46*trw.46*t_*t_*4-t_*t_*t_*trw.46*4))
+	if index(f)=0 {
+		if index(f_)=0 : if trw.46>0 : pos dxdy+t,239+dydx : else : pos dxdy+t,239+dydx+absf(trw.46)*20*tx
+		if index(f_)=1 : if t_>0&trw.46>0 : line dxdy+t,239+dydx+absf(trw.46)*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=45 {
+	f=sqrt(-t_*t_+t_*trw.50*2+trw.51*trw.51/2 + Sqrt(trw.51*trw.51*trw.51*trw.51+trw.50*trw.51*trw.51*t_*8)/2)
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t,239+dydx+sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx
+		if index(f_)=1 : if t_>0&trw.50<0 : line dxdy+t,239+dydx+sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=154 {
+F=sqrt(-trw.162/2-sqrt(trw.162*trw.162-t_*t_*4*trw.163+t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if -trw.162<trw.163&trw.162<0&absf(t_)<sqrt(trw.163){
+				line dxdy+t,sqrt(-trw.162*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+if trx=157 {
+F=sqrt(trw.164/2 + sqrt(trw.164*trw.164+t_*t_*4*trw.165-t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if trw.164>0&(absf(t_)>sqrt(trw.165)|(trw.165<0)){
+				line dxdy+t,sqrt(trw.164*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+
+if fm=1&index(f)!0&index(f_)!0 {
+	if trx=213{
+		if absf(f-f_)<2.5*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}else{
+		if absf(f-f_)<5.0*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}
+}
+
+if fm=0 {
+	if f*tx>72.0|f*tx<-72.0 : pos t+dxdy,f*20*tx+240+dydx : else : line t+dxdy,f*20*tx+240+dydx;ï`âÊ
+
+	if trx!1&trx!75&trx!57&index(f)!0&index(f_)!0{
+		if (absf(f-f_)>2.5*tx)&trx=213 {
+			if (f-f_)<0 : line t+dxdy,-10
+			if (f-f_)>0 : line t+dxdy,over*tx
+			fm=1
+		}
+		if (absf(f-f_)>5.0*tx)&trx!37&trx!38 {
+			if (f-f_)<0 : line t+dxdy,-10
+			if (f-f_)>0 : line t+dxdy,over*tx
+			fm=1
+		}
+	}
+}
+next
+}
+
+f=0.0
+i=0.0
+x=0.0
+y=0.0
+t=0.0
+f_=0.0
+i_=0.0
+x_=0.0
+y_=0.0
+t_=0.0
+pos -1,239+dydx
+
+if trx=45|trx=44|trx=154|trx=157 {
+for t,-int(tx*disx/2)+310,int(tx*disx/2)+330,1
+f_=f
+tt=0.05*(t-319)-0.001
+t_=tt/tx
+if trx=44 {
+	f=Sqrt(-t_*t_+t_*trw.46*2 - sqrt(trw.46*trw.46*t_*t_*4-t_*t_*t_*trw.46*4))
+	if index(f)=0 {
+		if index(f_)=0 : if trw.46>0 : pos dxdy+t,239+dydx : else : pos dxdy+t,239+dydx+absf(trw.46)*20*tx
+		if index(f_)=1 : if t_>0&trw.46>0 : line dxdy+t,239+dydx+absf(trw.46)*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=45 {
+	f=sqrt(-t_*t_+t_*trw.50*2+trw.51*trw.51/2 - Sqrt(trw.51*trw.51*trw.51*trw.51+trw.50*trw.51*trw.51*t_*8)/2)
+	if index(f)=0 {
+		if index(f_)=0 : pos dxdy+t,239+dydx+sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx
+		if index(f_)=1 : if t_>0&trw.50<0 : line dxdy+t,239+dydx+sqrt(trw.50*trw.50-(t_+trw.50)*(t_+trw.50))*20*tx : else : line dxdy+t,239+dydx
+		_continue
+	}
+}
+if trx=154 {
+F=-sqrt(-trw.162/2-sqrt(trw.162*trw.162-t_*t_*4*trw.163+t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if -trw.162<trw.163&trw.162<0&absf(t_)<sqrt(trw.163){
+				line dxdy+t,-sqrt(-trw.162*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+if trx=157 {
+F=sqrt(trw.164/2 - sqrt(trw.164*trw.164+t_*t_*4*trw.165-t_*t_*t_*t_*4)/2)
+	if index(f)=0 {
+		if index(f_)=0{
+			pos dxdy+t
+		}else{
+			if trw.164>0&(absf(t_)>sqrt(trw.165)|(trw.165<0)){
+				line dxdy+t,sqrt(trw.164*2)*10*tx+239+dydx
+			}else{
+				line dxdy+t,239+dydx
+			}
+		}
+		_continue
+	}
+}
+
+if fm=1&index(f)!0&index(f_)!0 {
+	if trx=213{
+		if absf(f-f_)<2.5*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}else{
+		if absf(f-f_)<5.0*tx {
+			fm=0
+			if f<0 : pos t+dxdy-1,-10
+			if f>0 : pos t+dxdy-1,over*tx
+		}
+	}
+}
+
+if fm=0 {
+	if f*tx>72.0|f*tx<-72.0 : pos t+dxdy,f*20*tx+240+dydx : else : line t+dxdy,f*20*tx+240+dydx;ï`âÊ
+
+	if trx!1&trx!75&trx!57&index(f)!0&index(f_)!0{
+		if (absf(f-f_)>2.5*tx)&trx=213 {
+			if (f-f_)<0 : line t+dxdy,-10
+			if (f-f_)>0 : line t+dxdy,over*tx
+			fm=1
+		}
+		if (absf(f-f_)>5.0*tx)&trx!37&trx!38 {
+			if (f-f_)<0 : line t+dxdy,-10
+			if (f-f_)>0 : line t+dxdy,over*tx
+			fm=1
+		}
+	}
+}
+next
+}
+
+}
